@@ -40,7 +40,19 @@
 <div class="stake-box" id="reward-previous" hidden><div class="wallet-heading" style="font-size:16px">Reward Core เวอร์ชันก่อนหน้า (แยกยอด)</div>
 <div class="stake-stats"><div class="stake-stat"><small>Organization Volume (NC)</small><strong id="reward-old-org">—</strong></div>
 <div class="stake-stat"><small>Claimable (NC)</small><strong id="reward-old-claimable">—</strong></div></div></div>
-<div class="wallet-links"><a href="https://sixteeninter-ux.github.io/NCReward/" target="_blank" rel="noopener">เปิด NC Reward ↗</a></div></div><div class="wallet-links"><a href="https://sixteeninter-ux.github.io/NCTrading/" target="_blank" rel="noopener">เปิด NC Trading ↗</a><a href="https://sixteeninter-ux.github.io/NC-Whale/" target="_blank" rel="noopener">เปิด NC Whale ↗</a></div>
+<div class="wallet-links"><a href="https://sixteeninter-ux.github.io/NCReward/" target="_blank" rel="noopener">เปิด NC Reward ↗</a></div></div><div class="stake-box" id="thbc-whale-reward-dashboard">
+<div class="wallet-heading" style="font-size:19px">THBC Whale Reward — 500 Days</div>
+<div class="notice">อ่านรางวัล THBC จากสัญญา Whale Reward Staking บน BNB Chain · นับ 500 วันจากวันที่ Owner บันทึก Reward · ไม่ต้อง Approve เพื่อดูข้อมูล</div>
+<div class="stake-stats">
+<div class="stake-stat"><small>รายการ THBC Reward Stake</small><strong id="thbc-reward-count">—</strong></div>
+<div class="stake-stat"><small>THBC กำลัง Stake</small><strong id="thbc-reward-active">—</strong></div>
+<div class="stake-stat"><small>THBC ครบกำหนดรอถอน</small><strong id="thbc-reward-matured">—</strong></div>
+<div class="stake-stat"><small>THBC ถอนแล้ว</small><strong id="thbc-reward-withdrawn">—</strong></div>
+</div>
+<div class="wallet-message" id="thbc-reward-status">เชื่อม Wallet เพื่อดู THBC Whale Reward</div>
+<div class="stake-list" id="thbc-reward-list"></div>
+<div class="wallet-links"><a href="./thbc-reward/member.html" target="_blank" rel="noopener">เปิด THBC Whale Reward / Withdraw ↗</a></div>
+</div><div class="wallet-links"><a href="https://sixteeninter-ux.github.io/NCTrading/" target="_blank" rel="noopener">เปิด NC Trading ↗</a><a href="https://sixteeninter-ux.github.io/NC-Whale/" target="_blank" rel="noopener">เปิด NC Whale ↗</a></div>
  </div><div class="notice">ปุ่มซ่อนข้อมูลไม่ใช่การเพิกถอนการอนุญาตเชื่อมต่อ Wallet · สามารถจัดการสิทธิ์ได้ในแอปกระเป๋าเงิน</div>
 </section>
 <h2 class="section">อัตราแลกเปลี่ยน NC และ THBC</h2><div class="cards">
@@ -138,7 +150,7 @@ function clearWallet(message='ยังไม่ได้เชื่อมก�
  walletVersion++;walletAddress=null;$('wallet-address').textContent='ยังไม่ได้เชื่อมกระเป๋า';walletMessage(message);
  $('connect-wallet').hidden=false;$('hide-wallet').hidden=true;$('refresh-wallet').disabled=true;$('switch-bsc').hidden=true;
  for(const k of Object.keys(WALLETTOKENS))$('bal-'+k).textContent='—';
- $('stake-count').textContent='—';$('stake-reward').textContent='—';$('stake-status').textContent='เชื่อมกระเป๋าเพื่อดูข้อมูล Staking';$('stake-list').replaceChildren();$('whale-count').textContent='—';$('whale-claimed').textContent='—';$('whale-status').textContent='เชื่อม Wallet เพื่อดู Whale Stake';for(const id of ['reward-rank','reward-org','reward-claimable','reward-staked','reward-lots','reward-active','reward-matured','reward-withdrawable','reward-old-org','reward-old-claimable'])$(id).textContent='—';$('reward-core-status').textContent='เชื่อมกระเป๋าเพื่อดู Reward';$('reward-staking-status').textContent='เชื่อมกระเป๋าเพื่อดู Reward Staking';$('reward-lot-list').replaceChildren();$('reward-previous').hidden=true;
+ $('stake-count').textContent='—';$('stake-reward').textContent='—';$('stake-status').textContent='เชื่อมกระเป๋าเพื่อดูข้อมูล Staking';$('stake-list').replaceChildren();$('whale-count').textContent='—';$('whale-claimed').textContent='—';$('whale-status').textContent='เชื่อม Wallet เพื่อดู Whale Stake';for(const id of ['reward-rank','reward-org','reward-claimable','reward-staked','reward-lots','reward-active','reward-matured','reward-withdrawable','reward-old-org','reward-old-claimable'])$(id).textContent='—';$('reward-core-status').textContent='เชื่อมกระเป๋าเพื่อดู Reward';for(const id of ['thbc-reward-count','thbc-reward-active','thbc-reward-matured','thbc-reward-withdrawn'])$(id).textContent='—';$('thbc-reward-status').textContent='เชื่อม Wallet เพื่อดู THBC Whale Reward';$('thbc-reward-list').replaceChildren();$('reward-staking-status').textContent='เชื่อมกระเป๋าเพื่อดู Reward Staking';$('reward-lot-list').replaceChildren();$('reward-previous').hidden=true;
 }
 async function checkBsc(){
  if(!walletAddress)return;
@@ -213,6 +225,40 @@ async function refreshRewardStaking(addr,version){
  }catch(e){if(version===walletVersion)status.textContent='อ่าน Reward Staking ไม่สำเร็จ: '+e.message;}
 }
 
+const THBC_WHALE_REWARD='0xbE80B741d12e8CD4a94D90444F9aeCD2051c0c09';
+async function refreshTHBCWhaleReward(addr,version){
+ const status=$('thbc-reward-status'),list=$('thbc-reward-list');
+ status.textContent='กำลังอ่าน THBC Whale Reward...';
+ try{
+  const count=BigInt(await chainRead(THBC_WHALE_REWARD,'0x33060d90'+arg(addr)));
+  if(version!==walletVersion)return;
+  $('thbc-reward-count').textContent=count.toString();
+  list.replaceChildren();
+  let active=0n,matured=0n,withdrawn=0n;
+  const limit=count>10n?10n:count,now=BigInt(Math.floor(Date.now()/1000));
+  for(let i=count;i>count-limit;){
+   i--;
+   const hex=await chainRead(THBC_WHALE_REWARD,'0xcfd47663'+arg(addr)+i.toString(16).padStart(64,'0'));
+   if(version!==walletVersion)return;
+   const raw=hex.slice(2);
+   if(raw.length<384)throw Error('ข้อมูล Stake ไม่ครบ');
+   const w=Array.from({length:6},(_,j)=>BigInt('0x'+raw.slice(j*64,(j+1)*64)));
+   const [txhash,usdt,thbc,start,unlock,isWithdrawn]=w;
+   if(isWithdrawn!==0n)withdrawn+=thbc;
+   else if(now>=unlock)matured+=thbc;
+   else active+=thbc;
+   const row=document.createElement('div');row.className='stake-row';
+   const state=isWithdrawn!==0n?'ถอนแล้ว':now>=unlock?'ครบกำหนด — ถอนได้':'กำลัง Stake';
+   row.textContent='#'+(i+1n)+' · '+formatUnitsExact(thbc,18)+' THBC · Whale '+formatUnitsExact(usdt,18)+' USDT · เริ่ม '+stakeDate(start)+' · ครบ '+stakeDate(unlock)+' · '+state;
+   list.appendChild(row);
+  }
+  if(version!==walletVersion)return;
+  $('thbc-reward-active').textContent=formatUnitsExact(active,18);
+  $('thbc-reward-matured').textContent=formatUnitsExact(matured,18);
+  $('thbc-reward-withdrawn').textContent=formatUnitsExact(withdrawn,18);
+  status.textContent=count===0n?'ยังไม่มี THBC Whale Reward ที่ Owner บันทึกให้กระเป๋านี้':count>10n?'แสดง 10 รายการล่าสุดจาก '+count+' รายการ · ยอด THBC ด้านบนรวมเฉพาะรายการที่แสดง':'อ่านสำเร็จ · '+count+' รายการ';
+ }catch(e){if(version===walletVersion)status.textContent='อ่าน THBC Whale Reward ไม่สำเร็จ: '+e.message;}
+}
 async function refreshWallet(){
  if(!walletAddress)return;
  const current=walletAddress,version=++walletVersion;
@@ -221,6 +267,7 @@ async function refreshWallet(){
   refreshRewardCore(current,version),
   refreshRewardStaking(current,version),
   whaleView(current,version),
+  refreshTHBCWhaleReward(current,version),
   ...Object.entries(WALLETTOKENS).map(async([key,token])=>{
    try{const [b,d]=await Promise.all([chainRead(token,'0x70a08231'+arg(current)),chainRead(token,'0x313ce567')]);if(version===walletVersion)$('bal-'+key).textContent=formatUnitsExact(BigInt(b),BigInt(d));}
    catch(e){if(version===walletVersion)$('bal-'+key).textContent='อ่านไม่ได้';}
