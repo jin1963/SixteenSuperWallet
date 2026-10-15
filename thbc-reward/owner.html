@@ -1,0 +1,74 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>THBC Whale Reward Owner — Draft</title>
+<style>:root{font-family:system-ui;background:#07172e;color:#f9e8b3}body{margin:0;background:linear-gradient(140deg,#0b2b56,#07172e);min-height:100vh}main{max-width:750px;margin:auto;padding:25px 15px}h1{font-size:25px}h2{font-size:19px}.card{border:1px solid #6c7790;background:#0d2346;border-radius:16px;padding:18px;margin:14px 0}.warning{border-color:#d3a85e}label{display:block;font-size:13px;margin:14px 0 5px}input{box-sizing:border-box;width:100%;padding:12px;border-radius:8px;background:#06152b;border:1px solid #647b9e;color:white;font:inherit}button{margin:10px 6px 0 0;background:#edc976;color:#081a31;padding:11px 14px;border:0;border-radius:9px;font-weight:750;cursor:pointer}button:disabled{opacity:.45}p,small{line-height:1.7;color:#d2ddec}.stat{color:white;overflow-wrap:anywhere}.ok{color:#8fe8bd}.bad{color:#ffa8a8}a{color:#ffe2a0}</style></head><body><main>
+<h1>THBC Whale Reward — Owner</h1><div class="card warning"><strong>PRE-DEPLOY DRAFT</strong><p>หน้าต้นแบบสำหรับตรวจสอบ Tx Hash บน BSC ก่อนบันทึก Reward เข้าสัญญา THBC Whale Reward Staking ใหม่ สัญญายังไม่ได้ Deploy และต้องผ่านการทดสอบ/ตรวจสอบความปลอดภัยก่อนใช้งานจริง</p></div>
+<div class="card"><h2>1. เชื่อม Owner Wallet</h2><button id="connect">Connect Wallet</button><div class="stat" id="wallet">ยังไม่ได้เชื่อม</div><label>THBC Reward Staking Contract (หลัง Deploy)</label><input id="contract" placeholder="0x... ที่อยู่สัญญาใหม่" autocomplete="off"><p><small>THBC Token: 0xe8d4687b77b5611ef1828fda7428034fa12a1beb · Whale Core: 0x248CEF21BD24C30AD22E29430864Fcaf11303957</small></p></div>
+<div class="card"><h2>2. ตรวจสอบธุรกรรม Whale</h2><label>Transaction Hash จาก BscScan</label><input id="tx" placeholder="0x... 64 ตัวอักษร" autocomplete="off"><button id="verify">ตรวจสอบ Tx Hash</button><p id="verification" class="stat">รอการตรวจสอบ</p><button id="record" disabled>Confirm & Auto Stake 500 วัน</button><p><small>ตรวจสอบสถานะสำเร็จ, Chain 56, Whale Core, buyPackage, ราคาจาก Package Contract, USDT Transfer จากผู้ซื้อ, จำนวน Confirmations และการบันทึกซ้ำก่อนยืนยัน</small></p></div>
+<div class="card"><h2>3. เติมกองทุน THBC</h2><label>จำนวน THBC</label><input id="fund-amount" placeholder="เช่น 33000" inputmode="decimal"><button id="approve">Approve THBC</button><button id="fund">Fund Reward Contract</button><p id="fund-status" class="stat">เติมเหรียญก่อนบันทึกรางวัล ระบบจะสำรอง THBC เต็มจำนวนตั้งแต่เริ่ม Stake</p></div>
+<p><a href="https://bscscan.com/" target="_blank" rel="noopener">เปิด BscScan ↗</a></p></main>
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
+<script>
+'use strict';
+const WHALE='0x248CEF21BD24C30AD22E29430864Fcaf11303957';
+const USDT='0x55d398326f99059fF775485246999027B3197955';
+const THBC='0xe8d4687b77b5611ef1828fda7428034fa12a1beb';
+const coreAbi=['function packageContract() view returns(address)','function buyPackage(uint256 packageId,address sponsorInput) returns(uint256)'];
+const pkgAbi=['function packageForCore(uint256 packageId) view returns(uint256 priceUSDT,uint256 principalNC,uint16 dailyRewardBps,uint64 lockSeconds,bool active)'];
+const rewardAbi=['function owner() view returns(address)','function processedPurchase(bytes32) view returns(bool)','function rewardFor(uint256) pure returns(uint256)','function recordPurchase(bytes32,address,uint256) returns(uint256)','function fund(uint256)','function thbc() view returns(address)','function availableSurplus() view returns(uint256)'];
+const ercAbi=['function approve(address,uint256) returns(bool)','function decimals() view returns(uint8)','function balanceOf(address) view returns(uint256)'];
+const $=id=>document.getElementById(id);
+let provider,signer,verified=null;
+const msg=(id,t,good)=>{$(id).textContent=t;$(id).className='stat '+(good===true?'ok':good===false?'bad':'');};
+const same=(a,b)=>a?.toLowerCase()===b?.toLowerCase();
+const validAddress=a=>/^0x[0-9a-fA-F]{40}$/.test(a);
+function ensureEthers(){if(!window.ethers)throw Error('ไม่สามารถโหลด ethers.js ได้ กรุณาตรวจสอบอินเทอร์เน็ต');}
+async function connect(){ensureEthers();if(!window.ethereum)throw Error('กรุณาเปิดใน MetaMask หรือ Trust Wallet');provider=new ethers.BrowserProvider(window.ethereum);await provider.send('eth_requestAccounts',[]);const n=await provider.getNetwork();if(n.chainId!==56n)throw Error('กรุณาเปลี่ยนเป็น BSC Mainnet (56)');signer=await provider.getSigner();msg('wallet',await signer.getAddress(),true);}
+function rewardContract(write=false){ensureEthers();const a=$('contract').value.trim();if(!validAddress(a))throw Error('กรุณากรอก Reward Contract Address ที่ Deploy แล้ว');return new ethers.Contract(a,rewardAbi,write?signer:provider);}
+async function requireOwner(){if(!signer)throw Error('เชื่อม Owner Wallet ก่อน');const c=rewardContract(true);if(!same(await c.owner(),await signer.getAddress()))throw Error('Wallet นี้ไม่ใช่ Owner ของ Reward Contract');if(!same(await c.thbc(),THBC))throw Error('Reward Contract ใช้ THBC Token ไม่ตรง');return c;}
+$('connect').onclick=async()=>{try{await connect()}catch(e){msg('wallet',e.shortMessage||e.message,false)}};
+$('verify').onclick=async()=>{
+ verified=null;$('record').disabled=true;
+ try{
+  ensureEthers();const hash=$('tx').value.trim();if(!/^0x[0-9a-fA-F]{64}$/.test(hash))throw Error('Tx Hash ไม่ถูกต้อง');
+  const rpc=new ethers.JsonRpcProvider('https://bsc-rpc.publicnode.com',56,{staticNetwork:true});
+  const [tx,receipt,head]=await Promise.all([rpc.getTransaction(hash),rpc.getTransactionReceipt(hash),rpc.getBlockNumber()]);
+  if(!tx||!receipt)throw Error('ไม่พบธุรกรรมที่ยืนยันแล้ว');
+  if(receipt.status!==1)throw Error('ธุรกรรมล้มเหลว');
+  if(!same(tx.to,WHALE))throw Error('ธุรกรรมไม่ได้ส่งไป Whale Core ที่กำหนด');
+  if(head-receipt.blockNumber<12)throw Error('รออย่างน้อย 12 confirmations');
+  const iface=new ethers.Interface(coreAbi);const parsed=iface.parseTransaction({data:tx.data,value:tx.value});
+  if(!parsed||parsed.name!=='buyPackage')throw Error('ไม่ใช่คำสั่ง buyPackage');
+  const core=new ethers.Contract(WHALE,coreAbi,rpc);
+  const pkgAddress=await core.packageContract();const pkg=new ethers.Contract(pkgAddress,pkgAbi,rpc);
+  const info=await pkg.packageForCore(parsed.args[0]);
+  const price=info[0];
+  if(![1000n,3000n,5000n,10000n].some(n=>price===n*10n**18n))throw Error('ราคาแพ็กเกจไม่อยู่ใน 4 ระดับที่รองรับ');
+  const transferTopic=ethers.id('Transfer(address,address,uint256)');
+  let paid=0n;
+  for(const log of receipt.logs){
+   if(!same(log.address,USDT)||log.topics[0]!==transferTopic||log.topics.length!==3)continue;
+   const from=ethers.getAddress('0x'+log.topics[1].slice(-40));
+   if(same(from,tx.from))paid+=BigInt(log.data);
+  }
+  if(paid!==price)throw Error('ยอด USDT ที่โอนออกจากผู้ซื้อไม่ตรงกับราคาแพ็กเกจปัจจุบัน (อาจมีการแก้ราคาแพ็กเกจภายหลัง) กรุณาตรวจสอบด้วยหลักฐานประวัติ');
+  const reward=price*33n;
+  const c=await requireOwner();
+  if(await c.processedPurchase(hash))throw Error('Tx Hash นี้ถูกบันทึกรางวัลแล้ว');
+  verified={hash,buyer:tx.from,price:price.toString(),reward:reward.toString()};
+  msg('verification','ผ่านการตรวจสอบ · ผู้ซื้อ '+tx.from+' · Package #'+parsed.args[0]+' · '+ethers.formatUnits(price,18)+' USDT · Reward '+ethers.formatUnits(reward,18)+' THBC · 500 วัน',true);
+  $('record').disabled=false;
+ }catch(e){msg('verification',e.shortMessage||e.message,false);}
+};
+$('record').onclick=async()=>{
+ if(!verified)return;
+ $('record').disabled=true;
+ try{
+  const c=await requireOwner();
+  if(await c.processedPurchase(verified.hash))throw Error('Tx Hash นี้ถูกบันทึกแล้ว');
+  const tx=await c.recordPurchase(verified.hash,verified.buyer,BigInt(verified.price));
+  msg('verification','กำลังรอการยืนยัน '+tx.hash);
+  await tx.wait();msg('verification','บันทึก Reward Auto Stake สำเร็จ: '+tx.hash,true);verified=null;
+ }catch(e){msg('verification',e.shortMessage||e.message,false);}
+};
+$('approve').onclick=async()=>{try{const c=await requireOwner();const amount=ethers.parseUnits($('fund-amount').value.trim(),18);if(amount<=0n)throw Error('จำนวนต้องมากกว่า 0');const t=new ethers.Contract(THBC,ercAbi,signer);const tx=await t.approve(await c.getAddress(),amount);msg('fund-status','กำลังรอ Approve '+tx.hash);await tx.wait();msg('fund-status','Approve สำเร็จ',true);}catch(e){msg('fund-status',e.shortMessage||e.message,false)}};
+$('fund').onclick=async()=>{try{const c=await requireOwner();const amount=ethers.parseUnits($('fund-amount').value.trim(),18);if(amount<=0n)throw Error('จำนวนต้องมากกว่า 0');const tx=await c.fund(amount);msg('fund-status','กำลังรอ Fund '+tx.hash);await tx.wait();msg('fund-status','เติม THBC สำเร็จ: '+tx.hash,true);}catch(e){msg('fund-status',e.shortMessage||e.message,false)}};
+</script></body></html>
