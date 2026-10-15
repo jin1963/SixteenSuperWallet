@@ -3,8 +3,27 @@
 <title>Sixteen Super Wallet | Live Prices</title>
 <style>
 :root{color-scheme:dark;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#07172e;color:#f9e8b3}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#123a74,#07172e 52%,#030b1a);min-height:100vh}main{max-width:850px;margin:auto;padding:22px 16px 60px}.hero{text-align:center;border:1px solid #bc9246;border-radius:22px;padding:30px 16px;background:linear-gradient(135deg,#07172e,#153c72,#07172e)}.logo{font-size:32px;font-weight:850;color:#f8d57e}.sub{color:#c4d6f2;margin-top:7px;font-size:14px}.section{margin:28px 0 14px;font-size:20px;color:#f8d57e}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}.card{background:#0d2346;border:1px solid #3b6194;border-radius:18px;padding:20px}.symbol{font-weight:800;font-size:22px}.tag{display:inline-block;border:1px solid #d2a85c;border-radius:20px;padding:4px 9px;font-size:11px;margin-left:8px}.price{font-size:31px;font-weight:850;color:white;margin:17px 0 5px;overflow-wrap:anywhere}.label{font-size:13px;color:#a8c1e6}.details{margin-top:20px;padding-top:15px;border-top:1px solid #345176;display:grid;gap:10px}.item{display:flex;justify-content:space-between;gap:8px;font-size:13px}.item span:last-child{text-align:right;color:#fff}.status{margin-top:16px;font-size:13px;color:#b8d0f3;overflow-wrap:anywhere}.error{color:#ff9c9c}.ok{color:#8ee3bf}.btn{cursor:pointer;border:1px solid #d6ac62;background:linear-gradient(#f4d68c,#b78532);color:#102445;padding:12px 18px;border-radius:12px;font-weight:800}.btn:disabled{opacity:.6}.actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:22px}.muted{font-size:12px;color:#b7c7df;line-height:1.7}.link{color:#ffe09d;text-decoration:none}.footer{margin-top:35px;text-align:center}.pill{padding:5px 10px;border:1px solid #456b9b;border-radius:20px;font-size:12px;color:#c9dcf9}
+
+.wallet-panel{margin-top:22px;border:1px solid #c69d52;border-radius:18px;background:#0e2850;padding:20px}.wallet-head{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}.wallet-heading{font-size:22px;font-weight:800;color:#f8d57e}.wallet-address{font-size:13px;color:#d1e1f6;overflow-wrap:anywhere;margin:8px 0}.wallet-controls{display:flex;flex-wrap:wrap;gap:8px}.btn-outline{border:1px solid #7190b5;background:#173d6e;color:white;border-radius:10px;padding:10px 12px;cursor:pointer;font-weight:650}.btn-outline:disabled{opacity:.5}.balances{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}.bal{background:#0b1c39;border:1px solid #3b6194;border-radius:12px;padding:13px}.bal small{color:#b8cee9}.bal strong{display:block;color:white;font-size:20px;overflow-wrap:anywhere;margin-top:5px}.wallet-message{font-size:13px;color:#b9d3f4;margin-top:12px;overflow-wrap:anywhere}.stake-box{margin-top:20px;border:1px solid #466f9e;border-radius:15px;padding:16px;background:#0b2042}.stake-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.stake-stat{padding:12px;border:1px solid #365b8b;border-radius:10px}.stake-stat small{color:#abc5e7;display:block}.stake-stat strong{color:white;display:block;font-size:18px;margin-top:5px}.stake-list{display:grid;gap:10px;margin-top:12px}.stake-row{border:1px solid #315784;border-radius:10px;padding:12px;color:#e9f2ff;font-size:13px;line-height:1.8}.stake-row b{color:#f8d57e}.wallet-links{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.wallet-links a{border:1px solid #c69d52;border-radius:10px;padding:10px 13px;color:#f8d57e;text-decoration:none;font-size:13px}.notice{font-size:12px;color:#b7cbe6;line-height:1.65;margin-top:13px}
 </style></head><body><main>
 <header class="hero"><div class="logo">⬡ Sixteen Super Wallet</div><div class="sub">NC · THBC · STC Ecosystem</div><div class="sub">BNB Smart Chain Mainnet · PancakeSwap V2</div></header>
+
+<section class="wallet-panel">
+ <div class="wallet-head"><div><div class="wallet-heading">◈ My Wallet</div><div class="wallet-address" id="wallet-address">ยังไม่ได้เชื่อมกระเป๋า</div></div>
+ <div class="wallet-controls"><button class="btn" id="connect-wallet">Connect Wallet</button><button class="btn-outline" id="switch-bsc" hidden>เปลี่ยนเป็น BSC</button><button class="btn-outline" id="refresh-wallet" disabled>↻ รีเฟรชข้อมูล</button><button class="btn-outline" id="hide-wallet" hidden>ซ่อนข้อมูล</button></div></div>
+ <div class="wallet-message" id="wallet-message">เชื่อมด้วย MetaMask หรือ Trust Wallet ในเบราว์เซอร์ที่รองรับ Web3</div>
+ <div class="balances">
+  <div class="bal"><small>NC</small><strong id="bal-nc">—</strong></div><div class="bal"><small>THBC</small><strong id="bal-thbc">—</strong></div>
+  <div class="bal"><small>STC</small><strong id="bal-stc">—</strong></div><div class="bal"><small>USDT</small><strong id="bal-usdt">—</strong></div>
+ </div>
+ <div class="stake-box">
+  <div class="wallet-heading" style="font-size:19px">NC Staking Dashboard</div>
+  <div class="notice">อ่านจาก NC Staking V5 เดิมโดยตรง · ไม่โอนเหรียญ ไม่อนุมัติ และไม่สร้าง Stake ใหม่</div>
+  <div class="stake-stats"><div class="stake-stat"><small>รายการ Stake ทั้งหมด</small><strong id="stake-count">—</strong></div><div class="stake-stat"><small>รางวัลค้างรับรวม (NC)</small><strong id="stake-reward">—</strong></div></div>
+  <div id="stake-status" class="wallet-message">เชื่อมกระเป๋าเพื่อดูข้อมูล Staking</div><div id="stake-list" class="stake-list"></div>
+  <div class="wallet-links"><a href="https://sixteeninter-ux.github.io/NCTrading/" target="_blank" rel="noopener">เปิด NC Trading ↗</a><a href="https://sixteeninter-ux.github.io/NC-Whale/" target="_blank" rel="noopener">เปิด NC Whale ↗</a></div>
+ </div><div class="notice">ปุ่มซ่อนข้อมูลไม่ใช่การเพิกถอนการอนุญาตเชื่อมต่อ Wallet · สามารถจัดการสิทธิ์ได้ในแอปกระเป๋าเงิน</div>
+</section>
 <h2 class="section">ราคาจาก Liquidity Pool</h2><div class="cards">
 <section class="card"><div><span class="symbol">NC / USDT</span><span class="tag">V2</span></div><div class="price" id="nc-price">กำลังโหลด...</div><div class="label">USDT ต่อ 1 NC</div><div class="details"><div class="item"><span>1 USDT เท่ากับ</span><span id="nc-inverse">—</span></div><div class="item"><span>USDT ใน Pool</span><span id="nc-usdt">—</span></div><div class="item"><span>NC ใน Pool</span><span id="nc-token">—</span></div><div class="item"><span>มูลค่า Pool โดยประมาณ</span><span id="nc-tvl">—</span></div></div><div class="status" id="nc-status">กำลังเชื่อมต่อ...</div></section>
 <section class="card"><div><span class="symbol">THBC / USDT</span><span class="tag">V2</span></div><div class="price" id="thbc-price">กำลังโหลด...</div><div class="label">USDT ต่อ 1 THBC</div><div class="details"><div class="item"><span>1 USDT เท่ากับ</span><span id="thbc-inverse">—</span></div><div class="item"><span>USDT ใน Pool</span><span id="thbc-usdt">—</span></div><div class="item"><span>THBC ใน Pool</span><span id="thbc-token">—</span></div><div class="item"><span>มูลค่า Pool โดยประมาณ</span><span id="thbc-tvl">—</span></div></div><div class="status" id="thbc-status">กำลังเชื่อมต่อ...</div></section>
@@ -84,4 +103,102 @@ async function update(){
 }
 $('refresh').addEventListener('click',update);
 update();setInterval(()=>{if(!document.hidden)update();},30000);
+
+const STC='0x12730990de18c6864e45d22f007ebebafbf6c76b';
+const STAKING='0xd1431576a8b28ed2B72212284513f336d1465AE2';
+const WALLETTOKENS={nc:CONFIG.nc.token,thbc:CONFIG.thbc.token,stc:STC,usdt:USDT};
+let walletAddress=null,activeProvider=null,walletVersion=0;
+const walletMessage=(m)=>{$('wallet-message').textContent=m;};
+function walletProvider(){const e=window.ethereum;if(e?.providers?.length)return e.providers.find(p=>p.isMetaMask&&!p.isTrust)||e.providers.find(p=>p.isTrust)||e.providers[0];return e||window.trustwallet?.ethereum||null;}
+async function wcall(method,params){return activeProvider.request({method,...(params?{params}:{})});}
+async function chainRead(to,data){let err;for(const url of RPCS){try{return await rpc(url,to,data);}catch(e){err=e;}}throw err||Error('RPC ไม่ตอบสนอง');}
+function formatUnitsExact(value,decimals,max=5){
+ const n=BigInt(value),d=Number(BigInt(decimals));if(d<0||d>36)throw Error('Invalid decimals');
+ const base=10n**BigInt(d),whole=(n/base).toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');
+ const part=(n%base).toString().padStart(d,'0').slice(0,max).replace(/0+$/,'');
+ return whole+(part?'.'+part:'');
+}
+function stakeDate(n){const d=new Date(Number(n)*1000);return Number(n)>0&&Number.isFinite(d.getTime())?d.toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'}):'—';}
+function clearWallet(message='ยังไม่ได้เชื่อมกระเป๋า'){
+ walletVersion++;walletAddress=null;$('wallet-address').textContent='ยังไม่ได้เชื่อมกระเป๋า';walletMessage(message);
+ $('connect-wallet').hidden=false;$('hide-wallet').hidden=true;$('refresh-wallet').disabled=true;$('switch-bsc').hidden=true;
+ for(const k of Object.keys(WALLETTOKENS))$('bal-'+k).textContent='—';
+ $('stake-count').textContent='—';$('stake-reward').textContent='—';$('stake-status').textContent='เชื่อมกระเป๋าเพื่อดูข้อมูล Staking';$('stake-list').replaceChildren();
+}
+async function checkBsc(){
+ if(!walletAddress)return;
+ try{const chain=await wcall('eth_chainId');const isBsc=BigInt(chain)===56n;$('switch-bsc').hidden=isBsc;walletMessage(isBsc?'เชื่อมต่อแล้ว · BNB Smart Chain':'เชื่อมต่อแล้ว แต่ Wallet อยู่ต่างเครือข่าย · ข้อมูลด้านล่างยังอ่านจาก BSC');}
+ catch(e){walletMessage('ตรวจสอบเครือข่ายไม่สำเร็จ: '+e.message);}
+}
+async function refreshWallet(){
+ if(!walletAddress)return;
+ const current=walletAddress,version=++walletVersion;
+ walletMessage('กำลังอ่านยอดเหรียญและรายการ Stake จาก BSC...');
+ await Promise.all([
+  ...Object.entries(WALLETTOKENS).map(async([key,token])=>{
+   try{const [b,d]=await Promise.all([chainRead(token,'0x70a08231'+arg(current)),chainRead(token,'0x313ce567')]);if(version===walletVersion)$('bal-'+key).textContent=formatUnitsExact(BigInt(b),BigInt(d));}
+   catch(e){if(version===walletVersion)$('bal-'+key).textContent='อ่านไม่ได้';}
+  }),
+  (async()=>{
+   try{
+    const [countHex,rewardHex]=await Promise.all([
+     chainRead(STAKING,'0x33060d90'+arg(current)),
+     chainRead(STAKING,'0xa68fb3b6'+arg(current)).catch(()=>null)
+    ]);
+    if(version!==walletVersion)return;
+    const count=BigInt(countHex);$('stake-count').textContent=count.toString();
+    $('stake-reward').textContent=rewardHex===null?'อ่านไม่ได้':formatUnitsExact(BigInt(rewardHex),18);
+    const n=Number(count>10n?10n:count),start=count-BigInt(n);
+    $('stake-status').textContent=count===0n?'ไม่พบรายการ Stake ใน NC Staking V5':'แสดง '+n+' รายการล่าสุดจากทั้งหมด '+count+' รายการ';
+    $('stake-list').replaceChildren();
+    for(let i=count-1n;i>=start&&i>=0n;i--){
+     const hex=await chainRead(STAKING,'0x997db02d'+arg(current)+i.toString(16).padStart(64,'0'));
+     if(version!==walletVersion)return;
+     const data=hex.slice(2);if(data.length<320)throw Error('ข้อมูล Stake ไม่ครบ');
+     const words=Array.from({length:5},(_,j)=>BigInt('0x'+data.slice(j*64,(j+1)*64)));
+     const [pkg,principal,begin,end,claimed]=words;
+     const el=document.createElement('div');el.className='stake-row';
+     const names={1:'SMALL',2:'MEDIUM',3:'LARGE'};
+     const maturity=claimed?'เคลมแล้ว':Date.now()>=Number(end)*1000?'ครบกำหนดแล้ว':'กำลัง Stake';
+     el.textContent='#'+(i+1n)+' · '+(names[Number(pkg)]||'Package '+pkg)+' · '+formatUnitsExact(principal,18)+' NC · เริ่ม '+stakeDate(begin)+' · ครบกำหนด '+stakeDate(end)+' · '+maturity;
+     $('stake-list').appendChild(el);
+    }
+   }catch(e){if(version===walletVersion)$('stake-status').textContent='อ่านข้อมูล Staking ไม่สำเร็จ: '+e.message;}
+  })()
+ ]);
+ if(version===walletVersion)walletMessage('อัปเดตข้อมูล Wallet และ Staking แล้ว · '+new Date().toLocaleTimeString('th-TH'));
+}
+async function applyWallet(accounts){
+ const account=accounts?.[0];if(!account){clearWallet('ยังไม่ได้อนุญาตให้เข้าถึง Wallet');return;}
+ walletAddress=account;$('wallet-address').textContent=account;
+ $('connect-wallet').hidden=true;$('hide-wallet').hidden=false;$('refresh-wallet').disabled=false;
+ await checkBsc();await refreshWallet();
+}
+async function connectWallet(){
+ activeProvider=walletProvider();if(!activeProvider){walletMessage('ไม่พบ Wallet · เปิดผ่าน MetaMask หรือ Trust Wallet Browser');return;}
+ $('connect-wallet').disabled=true;
+ try{await applyWallet(await wcall('eth_requestAccounts'));}
+ catch(e){walletMessage(e.code===4001?'ยกเลิกการเชื่อมต่อแล้ว':'เชื่อมต่อไม่สำเร็จ: '+(e.message||e));}
+ finally{$('connect-wallet').disabled=false;}
+}
+async function switchBsc(){
+ try{await wcall('wallet_switchEthereumChain',[{chainId:'0x38'}]);}
+ catch(e){
+  if(e.code!==4902){walletMessage('เปลี่ยนเครือข่ายไม่สำเร็จ: '+e.message);return;}
+  try{await wcall('wallet_addEthereumChain',[{chainId:'0x38',chainName:'BNB Smart Chain',nativeCurrency:{name:'BNB',symbol:'BNB',decimals:18},rpcUrls:['https://bsc-dataseed.binance.org'],blockExplorerUrls:['https://bscscan.com']}]);}
+  catch(err){walletMessage('เพิ่มเครือข่ายไม่สำเร็จ: '+err.message);return;}
+ }
+ await checkBsc();
+}
+$('connect-wallet').addEventListener('click',connectWallet);
+$('switch-bsc').addEventListener('click',switchBsc);
+$('refresh-wallet').addEventListener('click',refreshWallet);
+$('hide-wallet').addEventListener('click',()=>clearWallet('ซ่อนข้อมูล Wallet แล้ว'));
+activeProvider=walletProvider();
+if(activeProvider){
+ activeProvider.on?.('accountsChanged',a=>{applyWallet(a).catch(e=>walletMessage(e.message));});
+ activeProvider.on?.('chainChanged',()=>{checkBsc().catch(e=>walletMessage(e.message));});
+ wcall('eth_accounts').then(a=>{if(a?.[0])applyWallet(a);}).catch(()=>{});
+}
+
 </script></body></html>
