@@ -24,13 +24,13 @@
   <div class="stake-box"><div class="wallet-heading" style="font-size:19px">NC Whale Staking V12</div><div class="stake-stats"><div class="stake-stat"><small>จำนวนรายการ Whale Stake</small><strong id="whale-count">—</strong></div><div class="stake-stat"><small>NC ที่เคลมแล้ว</small><strong id="whale-claimed">—</strong></div></div><div class="wallet-message" id="whale-status">เชื่อม Wallet เพื่อดู Whale Stake</div><div id="whale-list" class="stake-list"></div></div><div class="wallet-links"><a href="https://sixteeninter-ux.github.io/NCTrading/" target="_blank" rel="noopener">เปิด NC Trading ↗</a><a href="https://sixteeninter-ux.github.io/NC-Whale/" target="_blank" rel="noopener">เปิด NC Whale ↗</a></div>
  </div><div class="notice">ปุ่มซ่อนข้อมูลไม่ใช่การเพิกถอนการอนุญาตเชื่อมต่อ Wallet · สามารถจัดการสิทธิ์ได้ในแอปกระเป๋าเงิน</div>
 </section>
-<h2 class="section">ราคาจาก Liquidity Pool</h2><div class="cards">
-<section class="card"><div><span class="symbol">NC / USDT</span><span class="tag">V2</span></div><div class="price" id="nc-price">กำลังโหลด...</div><div class="label">USDT ต่อ 1 NC</div><div class="details"><div class="item"><span>1 USDT เท่ากับ</span><span id="nc-inverse">—</span></div><div class="item"><span>USDT ใน Pool</span><span id="nc-usdt">—</span></div><div class="item"><span>NC ใน Pool</span><span id="nc-token">—</span></div><div class="item"><span>มูลค่า Pool โดยประมาณ</span><span id="nc-tvl">—</span></div></div><div class="status" id="nc-status">กำลังเชื่อมต่อ...</div></section>
-<section class="card"><div><span class="symbol">THBC / USDT</span><span class="tag">V2</span></div><div class="price" id="thbc-price">กำลังโหลด...</div><div class="label">USDT ต่อ 1 THBC</div><div class="details"><div class="item"><span>1 USDT เท่ากับ</span><span id="thbc-inverse">—</span></div><div class="item"><span>USDT ใน Pool</span><span id="thbc-usdt">—</span></div><div class="item"><span>THBC ใน Pool</span><span id="thbc-token">—</span></div><div class="item"><span>มูลค่า Pool โดยประมาณ</span><span id="thbc-tvl">—</span></div></div><div class="status" id="thbc-status">กำลังเชื่อมต่อ...</div></section>
+<h2 class="section">อัตราแลกเปลี่ยน NC และ THBC</h2><div class="cards">
+<section class="card"><div><span class="symbol">NC / USDT</span><span class="tag">V2</span></div><div class="label" style="margin-top:16px">1 USDT เท่ากับ</div><div class="price" id="nc-inverse">กำลังโหลด...</div><div class="status" id="nc-status">กำลังเชื่อมต่อ...</div></section>
+<section class="card"><div><span class="symbol">THBC / USDT</span><span class="tag">V2</span></div><div class="label" style="margin-top:16px">1 USDT เท่ากับ</div><div class="price" id="thbc-inverse">กำลังโหลด...</div><div class="status" id="thbc-status">กำลังเชื่อมต่อ...</div></section>
 </div><div class="actions"><button class="btn" id="refresh">↻ อัปเดตราคา</button><span class="pill" id="updated">ยังไม่มีข้อมูล</span></div>
-<p class="muted">ราคานี้คำนวณจากจำนวนเหรียญสำรองใน PancakeSwap V2 ณ เวลาที่อ่าน ไม่ใช่ราคาคงที่หรือราคาที่รับประกันว่าจะซื้อขายได้จริง ค่าธรรมเนียมและ slippage อาจทำให้ราคาซื้อขายแตกต่าง โดยเฉพาะ Pool ที่มีสภาพคล่องน้อย ข้อมูลรีเฟรชทุก 30 วินาที มูลค่า Pool โดยประมาณคำนวณจาก USDT ใน Pool × 2</p>
-<p class="muted">STC, กราฟย้อนหลัง และส่วนเชื่อม NC Trading / Whale / Reward จะเพิ่มภายหลังเมื่อส่วนราคาใช้งานได้แล้ว</p>
-<div class="footer"><a class="link" href="https://pancakeswap.finance/liquidity" target="_blank" rel="noopener">PancakeSwap Liquidity ↗</a><div class="muted">Sixteen Super Wallet · Price Dashboard V1.1</div></div>
+<p class="muted">อัตราแลกเปลี่ยนนี้คำนวณจากสภาพคล่อง PancakeSwap V2 ณ เวลาที่อ่าน ไม่ใช่ราคาคงที่หรือราคาที่รับประกันว่าจะซื้อขายได้จริง ค่าธรรมเนียมและ slippage อาจทำให้ราคาซื้อขายแตกต่าง โดยเฉพาะ Pool ที่มีสภาพคล่องน้อย ข้อมูลรีเฟรชทุก 30 วินาที</p>
+
+<div class="footer"><a class="link" href="https://pancakeswap.finance/liquidity" target="_blank" rel="noopener">PancakeSwap Liquidity ↗</a><div class="muted">Sixteen Super Wallet · Exchange Rates</div></div>
 </main><script>
 'use strict';
 // ไม่ต้องโหลด ethers.js จาก CDN; อ่าน eth_call โดยตรง จึงทำงานได้แม้ CDN ถูกบล็อก
@@ -85,15 +85,11 @@ async function update(){
   let data,error;
   for(const url of RPCS){try{data=await loadPool(key,url);break;}catch(e){error=e;}}
   if(data){
-   $(key+'-price').textContent=fmt(data.price,8)+' USDT';
    $(key+'-inverse').textContent=fmt(data.token/data.usd,6)+' '+key.toUpperCase();
-   $(key+'-usdt').textContent=fmt(data.usd)+' USDT';
-   $(key+'-token').textContent=fmt(data.token)+' '+key.toUpperCase();
-   $(key+'-tvl').textContent='≈ $'+fmt(2*data.usd,2);
    $(key+'-status').textContent='● อ่านข้อมูลสำเร็จ · Pair '+data.pair.slice(0,8)+'…'+data.pair.slice(-6);
    $(key+'-status').className='status ok';results.push(true);
   }else{
-   $(key+'-price').textContent='อ่านราคาไม่ได้';
+   $(key+'-inverse').textContent='อ่านราคาไม่ได้';
    $(key+'-status').textContent='⚠ '+(error?.message||'ไม่สามารถเชื่อมต่อ RPC ได้');
    $(key+'-status').className='status error';results.push(false);
   }
