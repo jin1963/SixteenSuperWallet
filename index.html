@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sixteen Super Wallet | Live Prices</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#07172e;color:#f9e8b3}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#123a74,#07172e 52%,#030b1a);min-height:100vh}main{max-width:850px;margin:auto;padding:22px 16px 60px}.hero{text-align:center;border:1px solid #bc9246;border-radius:22px;padding:30px 16px;background:linear-gradient(135deg,#07172e,#153c72,#07172e)}.logo{font-size:32px;font-weight:850;color:#f8d57e}.sub{color:#c4d6f2;margin-top:7px;font-size:14px}.section{margin:28px 0 14px;font-size:20px;color:#f8d57e}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}.card{background:#0d2346;border:1px solid #3b6194;border-radius:18px;padding:20px}.symbol{font-weight:800;font-size:22px}.tag{display:inline-block;border:1px solid #d2a85c;border-radius:20px;padding:4px 9px;font-size:11px;margin-left:8px}.price{font-size:31px;font-weight:850;color:white;margin:17px 0 5px;overflow-wrap:anywhere}.label{font-size:13px;color:#a8c1e6}.details{margin-top:20px;padding-top:15px;border-top:1px solid #345176;display:grid;gap:10px}.item{display:flex;justify-content:space-between;gap:8px;font-size:13px}.item span:last-child{text-align:right;color:#fff}.status{margin-top:16px;font-size:13px;color:#b8d0f3;overflow-wrap:anywhere}.error{color:#ff9c9c}.ok{color:#8ee3bf}.btn{cursor:pointer;border:1px solid #d6ac62;background:linear-gradient(#f4d68c,#b78532);color:#102445;padding:12px 18px;border-radius:12px;font-weight:800}.btn:disabled{opacity:.6}.actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:22px}.muted{font-size:12px;color:#b7c7df;line-height:1.7}.link{color:#ffe09d;text-decoration:none}.footer{margin-top:35px;text-align:center}.pill{padding:5px 10px;border:1px solid #456b9b;border-radius:20px;font-size:12px;color:#c9dcf9}
+</style></head><body><main>
+<header class="hero"><div class="logo">⬡ Sixteen Super Wallet</div><div class="sub">NC · THBC · STC Ecosystem</div><div class="sub">BNB Smart Chain Mainnet · PancakeSwap V2</div></header>
+<h2 class="section">ราคาจาก Liquidity Pool</h2><div class="cards">
+<section class="card"><div><span class="symbol">NC / USDT</span><span class="tag">V2</span></div><div class="price" id="nc-price">กำลังโหลด...</div><div class="label">USDT ต่อ 1 NC</div><div class="details"><div class="item"><span>1 USDT เท่ากับ</span><span id="nc-inverse">—</span></div><div class="item"><span>USDT ใน Pool</span><span id="nc-usdt">—</span></div><div class="item"><span>NC ใน Pool</span><span id="nc-token">—</span></div><div class="item"><span>มูลค่า Pool โดยประมาณ</span><span id="nc-tvl">—</span></div></div><div class="status" id="nc-status">กำลังเชื่อมต่อ...</div></section>
+<section class="card"><div><span class="symbol">THBC / USDT</span><span class="tag">V2</span></div><div class="price" id="thbc-price">กำลังโหลด...</div><div class="label">USDT ต่อ 1 THBC</div><div class="details"><div class="item"><span>1 USDT เท่ากับ</span><span id="thbc-inverse">—</span></div><div class="item"><span>USDT ใน Pool</span><span id="thbc-usdt">—</span></div><div class="item"><span>THBC ใน Pool</span><span id="thbc-token">—</span></div><div class="item"><span>มูลค่า Pool โดยประมาณ</span><span id="thbc-tvl">—</span></div></div><div class="status" id="thbc-status">กำลังเชื่อมต่อ...</div></section>
+</div><div class="actions"><button class="btn" id="refresh">↻ อัปเดตราคา</button><span class="pill" id="updated">ยังไม่มีข้อมูล</span></div>
+<p class="muted">ราคานี้คำนวณจากจำนวนเหรียญสำรองใน PancakeSwap V2 ณ เวลาที่อ่าน ไม่ใช่ราคาคงที่หรือราคาที่รับประกันว่าจะซื้อขายได้จริง ค่าธรรมเนียมและ slippage อาจทำให้ราคาซื้อขายแตกต่าง โดยเฉพาะ Pool ที่มีสภาพคล่องน้อย ข้อมูลรีเฟรชทุก 30 วินาที มูลค่า Pool โดยประมาณคำนวณจาก USDT ใน Pool × 2</p>
+<p class="muted">STC, กราฟย้อนหลัง และส่วนเชื่อม NC Trading / Whale / Reward จะเพิ่มภายหลังเมื่อส่วนราคาใช้งานได้แล้ว</p>
+<div class="footer"><a class="link" href="https://pancakeswap.finance/liquidity" target="_blank" rel="noopener">PancakeSwap Liquidity ↗</a><div class="muted">Sixteen Super Wallet · Price Dashboard V1.1</div></div>
+</main><script>
+'use strict';
+// ไม่ต้องโหลด ethers.js จาก CDN; อ่าน eth_call โดยตรง จึงทำงานได้แม้ CDN ถูกบล็อก
+const USDT='0x55d398326f99059ff775485246999027b3197955';
+const FACTORY='0xca143ce32fe78f1f7019d7d551a6402fc5350c73';
+const CONFIG={
+ nc:{token:'0xa0db9b043ea0387ba0f7480189f0392edaa72108'},
+ thbc:{token:'0xe8d4687b77b5611ef1828fda7428034fa12a1beb'}
+};
+const RPCS=['https://bsc-rpc.publicnode.com','https://bsc-dataseed.binance.org','https://1rpc.io/bnb'];
+const $=id=>document.getElementById(id),eq=(a,b)=>a.toLowerCase()===b.toLowerCase();
+const fmt=(n,d=4)=>n.toLocaleString('en-US',{maximumFractionDigits:d});
+const address=x=>'0x'+x.slice(-40);
+const arg=x=>x.slice(2).toLowerCase().padStart(64,'0');
+let running=false;
+async function rpc(url,to,data){
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);
+ try{
+  const response=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to,data},'latest']}),signal:controller.signal,cache:'no-store'});
+  if(!response.ok)throw Error('HTTP '+response.status);
+  const json=await response.json();
+  if(json.error)throw Error(json.error.message||'RPC error');
+  if(!json.result||json.result==='0x')throw Error('ไม่มีข้อมูลจาก Contract');
+  return json.result;
+ }finally{clearTimeout(timer);}
+}
+async function loadPool(key,url){
+ const cfg=CONFIG[key];
+ // ดึง Pair Address จาก Factory โดยตรง ไม่อาศัยการพิมพ์จากภาพหน้าจอ
+ const pairHex=await rpc(url,FACTORY,'0xe6a43905'+arg(USDT)+arg(cfg.token));
+ const pair=address(pairHex);
+ if(/^0x0{40}$/i.test(pair))throw Error('ยังไม่พบ PancakeSwap V2 Pair');
+ const [t0hex,t1hex,resHex,usdDhex,tokDhex]=await Promise.all([
+  rpc(url,pair,'0x0dfe1681'),rpc(url,pair,'0xd21220a7'),rpc(url,pair,'0x0902f1ac'),
+  rpc(url,USDT,'0x313ce567'),rpc(url,cfg.token,'0x313ce567')
+ ]);
+ const t0=address(t0hex),t1=address(t1hex);
+ if(!((eq(t0,USDT)&&eq(t1,cfg.token))||(eq(t1,USDT)&&eq(t0,cfg.token))))throw Error('Pair มี Token ไม่ตรง');
+ const reserve0=BigInt('0x'+resHex.slice(2,66)),reserve1=BigInt('0x'+resHex.slice(66,130));
+ const usdD=Number(BigInt(usdDhex)),tokD=Number(BigInt(tokDhex));
+ if(usdD>36||tokD>36)throw Error('Decimals ไม่ถูกต้อง');
+ const usd=Number(eq(t0,USDT)?reserve0:reserve1)/10**usdD;
+ const token=Number(eq(t0,cfg.token)?reserve0:reserve1)/10**tokD;
+ if(!Number.isFinite(usd)||!Number.isFinite(token)||usd<=0||token<=0)throw Error('Pool ไม่มีสภาพคล่อง');
+ return {usd,token,price:usd/token,pair};
+}
+async function update(){
+ if(running)return;running=true;$('refresh').disabled=true;
+ const keys=Object.keys(CONFIG),results=[];
+ await Promise.all(keys.map(async key=>{
+  $(key+'-status').textContent='กำลังอ่าน Pool...';$(key+'-status').className='status';
+  let data,error;
+  for(const url of RPCS){try{data=await loadPool(key,url);break;}catch(e){error=e;}}
+  if(data){
+   $(key+'-price').textContent=fmt(data.price,8)+' USDT';
+   $(key+'-inverse').textContent=fmt(data.token/data.usd,6)+' '+key.toUpperCase();
+   $(key+'-usdt').textContent=fmt(data.usd)+' USDT';
+   $(key+'-token').textContent=fmt(data.token)+' '+key.toUpperCase();
+   $(key+'-tvl').textContent='≈ $'+fmt(2*data.usd,2);
+   $(key+'-status').textContent='● อ่านข้อมูลสำเร็จ · Pair '+data.pair.slice(0,8)+'…'+data.pair.slice(-6);
+   $(key+'-status').className='status ok';results.push(true);
+  }else{
+   $(key+'-price').textContent='อ่านราคาไม่ได้';
+   $(key+'-status').textContent='⚠ '+(error?.message||'ไม่สามารถเชื่อมต่อ RPC ได้');
+   $(key+'-status').className='status error';results.push(false);
+  }
+ }));
+ $('updated').textContent=(results.every(Boolean)?'อัปเดตแล้ว: ':'ตรวจสอบการเชื่อมต่อ: ')+new Date().toLocaleTimeString('th-TH');
+ $('refresh').disabled=false;running=false;
+}
+$('refresh').addEventListener('click',update);
+update();setInterval(()=>{if(!document.hidden)update();},30000);
+</script></body></html>
