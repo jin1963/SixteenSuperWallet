@@ -140,7 +140,23 @@ async function whaleView(addr,version){
   if(version!==walletVersion)return;
   $('whale-count').textContent=count.toString();
   $('whale-claimed').textContent=formatUnitsExact(claimed,18);
-  status.textContent=count===0n?'ไม่พบ Whale Stake สำหรับกระเป๋านี้':'พบ '+count+' รายการใน Whale V12';
+  const list=$('whale-list');list.replaceChildren();
+  let totalPrincipal=0n,totalReward=0n;
+  const limit=count>20n?20n:count;
+  for(let i=count;i>count-limit;){
+   i--;
+   const raw=(await chainRead(WHALE_V12,'0xcfd47663'+arg(addr)+i.toString(16).padStart(64,'0'))).slice(2);
+   if(version!==walletVersion)return;
+   if(raw.length<384)throw Error('ข้อมูล Stake ไม่ครบ');
+   const values=Array.from({length:6},(_,j)=>BigInt('0x'+raw.slice(j*64,j*64+64)));
+   const [pkg,principal,reward,start,end,claimedFlag]=values;
+   if(claimedFlag===0n){totalPrincipal+=principal;totalReward+=reward;}
+   const item=document.createElement('div');item.className='stake-row';
+   const state=claimedFlag!==0n?'เคลมแล้ว':Date.now()>=Number(end)*1000?'ครบกำหนด':'กำลัง Stake';
+   item.textContent='#'+(i+1n)+' · Package '+pkg+' · เงินต้น '+formatUnitsExact(principal,18)+' NC · รางวัล '+formatUnitsExact(reward,18)+' NC · เริ่ม '+stakeDate(start)+' · ครบ '+stakeDate(end)+' · '+state;
+   list.appendChild(item);
+  }
+  status.textContent=count===0n?'ไม่พบ Whale Stake สำหรับกระเป๋านี้':'แสดง '+limit+' จาก '+count+' รายการ · เงินต้นที่ยังไม่เคลม '+formatUnitsExact(totalPrincipal,18)+' NC · รางวัลที่ยังไม่เคลม '+formatUnitsExact(totalReward,18)+' NC'+(count>limit?' (เฉพาะรายการที่แสดง)':'');
  }catch(e){if(version===walletVersion)status.textContent='อ่าน Whale V12 ไม่สำเร็จ: '+e.message;}
 }
 
