@@ -21,7 +21,26 @@
   <div class="notice">อ่านจาก NC Staking V5 เดิมโดยตรง · ไม่โอนเหรียญ ไม่อนุมัติ และไม่สร้าง Stake ใหม่</div>
   <div class="stake-stats"><div class="stake-stat"><small>รายการ Stake ทั้งหมด</small><strong id="stake-count">—</strong></div><div class="stake-stat"><small>รางวัลค้างรับรวม (NC)</small><strong id="stake-reward">—</strong></div></div>
   <div id="stake-status" class="wallet-message">เชื่อมกระเป๋าเพื่อดูข้อมูล Staking</div><div id="stake-list" class="stake-list"></div>
-  <div class="stake-box"><div class="wallet-heading" style="font-size:19px">NC Whale Staking V12</div><div class="stake-stats"><div class="stake-stat"><small>จำนวนรายการ Whale Stake</small><strong id="whale-count">—</strong></div><div class="stake-stat"><small>NC ที่เคลมแล้ว</small><strong id="whale-claimed">—</strong></div></div><div class="wallet-message" id="whale-status">เชื่อม Wallet เพื่อดู Whale Stake</div><div id="whale-list" class="stake-list"></div></div><div class="wallet-links"><a href="https://sixteeninter-ux.github.io/NCTrading/" target="_blank" rel="noopener">เปิด NC Trading ↗</a><a href="https://sixteeninter-ux.github.io/NC-Whale/" target="_blank" rel="noopener">เปิด NC Whale ↗</a></div>
+  <div class="stake-box"><div class="wallet-heading" style="font-size:19px">NC Whale Staking V12</div><div class="stake-stats"><div class="stake-stat"><small>จำนวนรายการ Whale Stake</small><strong id="whale-count">—</strong></div><div class="stake-stat"><small>NC ที่เคลมแล้ว</small><strong id="whale-claimed">—</strong></div></div><div class="wallet-message" id="whale-status">เชื่อม Wallet เพื่อดู Whale Stake</div><div id="whale-list" class="stake-list"></div></div><div class="stake-box" id="reward-dashboard">
+<div class="wallet-heading" style="font-size:19px">NC Reward Dashboard</div>
+<div class="notice">อ่านข้อมูลจาก NC Reward Core และ Reward Staking V1 · ไม่ทำธุรกรรม</div>
+<div class="stake-stats">
+<div class="stake-stat"><small>Rank</small><strong id="reward-rank">—</strong></div>
+<div class="stake-stat"><small>Organization Volume (NC)</small><strong id="reward-org">—</strong></div>
+<div class="stake-stat"><small>Claimable Reward (NC)</small><strong id="reward-claimable">—</strong></div>
+<div class="stake-stat"><small>Reward Auto Staked (NC)</small><strong id="reward-staked">—</strong></div>
+</div><div class="wallet-message" id="reward-core-status">เชื่อมกระเป๋าเพื่อดู Reward</div>
+<div class="stake-stats">
+<div class="stake-stat"><small>Reward Stake Lots</small><strong id="reward-lots">—</strong></div>
+<div class="stake-stat"><small>Active Principal (NC)</small><strong id="reward-active">—</strong></div>
+<div class="stake-stat"><small>Matured Principal (NC)</small><strong id="reward-matured">—</strong></div>
+<div class="stake-stat"><small>Withdrawable (NC)</small><strong id="reward-withdrawable">—</strong></div>
+</div><div class="wallet-message" id="reward-staking-status">เชื่อมกระเป๋าเพื่อดู Reward Staking</div>
+<div class="stake-list" id="reward-lot-list"></div>
+<div class="stake-box" id="reward-previous" hidden><div class="wallet-heading" style="font-size:16px">Reward Core เวอร์ชันก่อนหน้า (แยกยอด)</div>
+<div class="stake-stats"><div class="stake-stat"><small>Organization Volume (NC)</small><strong id="reward-old-org">—</strong></div>
+<div class="stake-stat"><small>Claimable (NC)</small><strong id="reward-old-claimable">—</strong></div></div></div>
+<div class="wallet-links"><a href="https://sixteeninter-ux.github.io/NCReward/" target="_blank" rel="noopener">เปิด NC Reward ↗</a></div></div><div class="wallet-links"><a href="https://sixteeninter-ux.github.io/NCTrading/" target="_blank" rel="noopener">เปิด NC Trading ↗</a><a href="https://sixteeninter-ux.github.io/NC-Whale/" target="_blank" rel="noopener">เปิด NC Whale ↗</a></div>
  </div><div class="notice">ปุ่มซ่อนข้อมูลไม่ใช่การเพิกถอนการอนุญาตเชื่อมต่อ Wallet · สามารถจัดการสิทธิ์ได้ในแอปกระเป๋าเงิน</div>
 </section>
 <h2 class="section">อัตราแลกเปลี่ยน NC และ THBC</h2><div class="cards">
@@ -119,7 +138,7 @@ function clearWallet(message='ยังไม่ได้เชื่อมก�
  walletVersion++;walletAddress=null;$('wallet-address').textContent='ยังไม่ได้เชื่อมกระเป๋า';walletMessage(message);
  $('connect-wallet').hidden=false;$('hide-wallet').hidden=true;$('refresh-wallet').disabled=true;$('switch-bsc').hidden=true;
  for(const k of Object.keys(WALLETTOKENS))$('bal-'+k).textContent='—';
- $('stake-count').textContent='—';$('stake-reward').textContent='—';$('stake-status').textContent='เชื่อมกระเป๋าเพื่อดูข้อมูล Staking';$('stake-list').replaceChildren();$('whale-count').textContent='—';$('whale-claimed').textContent='—';$('whale-status').textContent='เชื่อม Wallet เพื่อดู Whale Stake';
+ $('stake-count').textContent='—';$('stake-reward').textContent='—';$('stake-status').textContent='เชื่อมกระเป๋าเพื่อดูข้อมูล Staking';$('stake-list').replaceChildren();$('whale-count').textContent='—';$('whale-claimed').textContent='—';$('whale-status').textContent='เชื่อม Wallet เพื่อดู Whale Stake';for(const id of ['reward-rank','reward-org','reward-claimable','reward-staked','reward-lots','reward-active','reward-matured','reward-withdrawable','reward-old-org','reward-old-claimable'])$(id).textContent='—';$('reward-core-status').textContent='เชื่อมกระเป๋าเพื่อดู Reward';$('reward-staking-status').textContent='เชื่อมกระเป๋าเพื่อดู Reward Staking';$('reward-lot-list').replaceChildren();$('reward-previous').hidden=true;
 }
 async function checkBsc(){
  if(!walletAddress)return;
@@ -156,11 +175,51 @@ async function whaleView(addr,version){
  }catch(e){if(version===walletVersion)status.textContent='อ่าน Whale V12 ไม่สำเร็จ: '+e.message;}
 }
 
+
+const REWARD_CORE_CURRENT='0xe737e2Bce62353841C828d74306922ce5993AA8D';
+const REWARD_CORE_PREVIOUS='0x1e60dE14dD2FE30082124bCf44637c1C91ea548F';
+const REWARD_STAKING_V1='0x9c441A269526B57A9a2C98e31f64CEB485b8886b';
+function rewardWords(raw,count){const h=raw.slice(2);if(h.length<count*64)throw Error('ข้อมูลไม่ครบ');return Array.from({length:count},(_,i)=>BigInt('0x'+h.slice(i*64,(i+1)*64)));}
+async function rewardCoreRead(core,addr){return rewardWords(await chainRead(core,'0x69517310'+arg(addr)),11);}
+async function refreshRewardCore(addr,version){
+ const status=$('reward-core-status');status.textContent='กำลังอ่าน NC Reward Core...';
+ try{
+  const w=await rewardCoreRead(REWARD_CORE_CURRENT,addr);if(version!==walletVersion)return;
+  const ranks=['None','Bronze','Silver','Gold'];
+  $('reward-rank').textContent=ranks[Number(w[7])]||'Rank '+w[7];
+  $('reward-org').textContent=formatUnitsExact(w[1],18);
+  $('reward-claimable').textContent=formatUnitsExact(w[5],18);
+  $('reward-staked').textContent=formatUnitsExact(w[3],18);
+  status.textContent='อ่าน Reward Core สำเร็จ · '+(w[10]===1n?'เคลมได้ตามเงื่อนไข':'ยังไม่ผ่านเงื่อนไขเคลม');
+ }catch(e){if(version===walletVersion)status.textContent='อ่าน Reward Core ไม่สำเร็จ: '+e.message;}
+ try{
+  const w=await rewardCoreRead(REWARD_CORE_PREVIOUS,addr);if(version!==walletVersion)return;
+  if(w.slice(0,6).some(x=>x>0n)){$('reward-previous').hidden=false;$('reward-old-org').textContent=formatUnitsExact(w[1],18);$('reward-old-claimable').textContent=formatUnitsExact(w[5],18);}
+  else $('reward-previous').hidden=true;
+ }catch(e){if(version===walletVersion)$('reward-previous').hidden=true;}
+}
+async function refreshRewardStaking(addr,version){
+ const status=$('reward-staking-status');status.textContent='กำลังอ่าน Reward Staking...';
+ try{
+  const [summary,withdraw]=await Promise.all([chainRead(REWARD_STAKING_V1,'0x8f8bea75'+arg(addr)),chainRead(REWARD_STAKING_V1,'0xbe7ab51b'+arg(addr))]);
+  if(version!==walletVersion)return;
+  const [total,activeLots,withdrawn,principal,matured]=rewardWords(summary,5);
+  $('reward-lots').textContent=total.toString();$('reward-active').textContent=formatUnitsExact(principal,18);$('reward-matured').textContent=formatUnitsExact(matured,18);$('reward-withdrawable').textContent=formatUnitsExact(BigInt(withdraw),18);
+  const list=$('reward-lot-list');list.replaceChildren();const limit=total>10n?10n:total;
+  for(let i=total;i>total-limit;){i--;const w=rewardWords(await chainRead(REWARD_STAKING_V1,'0x9e994110'+arg(addr)+i.toString(16).padStart(64,'0')),6);if(version!==walletVersion)return;
+   const row=document.createElement('div');row.className='stake-row';row.textContent='#'+(i+1n)+' · '+formatUnitsExact(w[0],18)+' NC · เริ่ม '+stakeDate(w[1])+' · ปลดล็อก '+stakeDate(w[2])+' · '+(w[3]?'ถอนแล้ว':w[4]?'ครบกำหนด':'กำลัง Stake');list.appendChild(row);
+  }
+  if(version===walletVersion)status.textContent=total===0n?'ยังไม่มี Reward Auto Stake':'อ่านสำเร็จ · แสดง '+limit+' จาก '+total+' รายการ';
+ }catch(e){if(version===walletVersion)status.textContent='อ่าน Reward Staking ไม่สำเร็จ: '+e.message;}
+}
+
 async function refreshWallet(){
  if(!walletAddress)return;
  const current=walletAddress,version=++walletVersion;
  walletMessage('กำลังอ่านยอดเหรียญและรายการ Stake จาก BSC...');
  await Promise.all([
+  refreshRewardCore(current,version),
+  refreshRewardStaking(current,version),
   whaleView(current,version),
   ...Object.entries(WALLETTOKENS).map(async([key,token])=>{
    try{const [b,d]=await Promise.all([chainRead(token,'0x70a08231'+arg(current)),chainRead(token,'0x313ce567')]);if(version===walletVersion)$('bal-'+key).textContent=formatUnitsExact(BigInt(b),BigInt(d));}
