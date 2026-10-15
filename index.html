@@ -21,7 +21,7 @@
   <div class="notice">อ่านจาก NC Staking V5 เดิมโดยตรง · ไม่โอนเหรียญ ไม่อนุมัติ และไม่สร้าง Stake ใหม่</div>
   <div class="stake-stats"><div class="stake-stat"><small>รายการ Stake ทั้งหมด</small><strong id="stake-count">—</strong></div><div class="stake-stat"><small>รางวัลค้างรับรวม (NC)</small><strong id="stake-reward">—</strong></div></div>
   <div id="stake-status" class="wallet-message">เชื่อมกระเป๋าเพื่อดูข้อมูล Staking</div><div id="stake-list" class="stake-list"></div>
-  <div class="wallet-links"><a href="https://sixteeninter-ux.github.io/NCTrading/" target="_blank" rel="noopener">เปิด NC Trading ↗</a><a href="https://sixteeninter-ux.github.io/NC-Whale/" target="_blank" rel="noopener">เปิด NC Whale ↗</a></div>
+  <div class="stake-box"><div class="wallet-heading" style="font-size:19px">NC Whale Staking V12</div><div class="stake-stats"><div class="stake-stat"><small>จำนวนรายการ Whale Stake</small><strong id="whale-count">—</strong></div><div class="stake-stat"><small>NC ที่เคลมแล้ว</small><strong id="whale-claimed">—</strong></div></div><div class="wallet-message" id="whale-status">เชื่อม Wallet เพื่อดู Whale Stake</div><div id="whale-list" class="stake-list"></div></div><div class="wallet-links"><a href="https://sixteeninter-ux.github.io/NCTrading/" target="_blank" rel="noopener">เปิด NC Trading ↗</a><a href="https://sixteeninter-ux.github.io/NC-Whale/" target="_blank" rel="noopener">เปิด NC Whale ↗</a></div>
  </div><div class="notice">ปุ่มซ่อนข้อมูลไม่ใช่การเพิกถอนการอนุญาตเชื่อมต่อ Wallet · สามารถจัดการสิทธิ์ได้ในแอปกระเป๋าเงิน</div>
 </section>
 <h2 class="section">ราคาจาก Liquidity Pool</h2><div class="cards">
@@ -123,18 +123,33 @@ function clearWallet(message='ยังไม่ได้เชื่อมก�
  walletVersion++;walletAddress=null;$('wallet-address').textContent='ยังไม่ได้เชื่อมกระเป๋า';walletMessage(message);
  $('connect-wallet').hidden=false;$('hide-wallet').hidden=true;$('refresh-wallet').disabled=true;$('switch-bsc').hidden=true;
  for(const k of Object.keys(WALLETTOKENS))$('bal-'+k).textContent='—';
- $('stake-count').textContent='—';$('stake-reward').textContent='—';$('stake-status').textContent='เชื่อมกระเป๋าเพื่อดูข้อมูล Staking';$('stake-list').replaceChildren();
+ $('stake-count').textContent='—';$('stake-reward').textContent='—';$('stake-status').textContent='เชื่อมกระเป๋าเพื่อดูข้อมูล Staking';$('stake-list').replaceChildren();$('whale-count').textContent='—';$('whale-claimed').textContent='—';$('whale-status').textContent='เชื่อม Wallet เพื่อดู Whale Stake';
 }
 async function checkBsc(){
  if(!walletAddress)return;
  try{const chain=await wcall('eth_chainId');const isBsc=BigInt(chain)===56n;$('switch-bsc').hidden=isBsc;walletMessage(isBsc?'เชื่อมต่อแล้ว · BNB Smart Chain':'เชื่อมต่อแล้ว แต่ Wallet อยู่ต่างเครือข่าย · ข้อมูลด้านล่างยังอ่านจาก BSC');}
  catch(e){walletMessage('ตรวจสอบเครือข่ายไม่สำเร็จ: '+e.message);}
 }
+
+const WHALE_V12='0x4C98C39A5D892874F66C1Ab71D641647BDF0D4f2';
+async function whaleView(addr,version){
+ const status=$('whale-status');status.textContent='กำลังอ่าน Whale V12...';
+ try{
+  const count=BigInt(await chainRead(WHALE_V12,'0x0e36e355'+arg(addr)));
+  const claimed=BigInt(await chainRead(WHALE_V12,'0x29c054d4'+arg(addr)));
+  if(version!==walletVersion)return;
+  $('whale-count').textContent=count.toString();
+  $('whale-claimed').textContent=formatUnitsExact(claimed,18);
+  status.textContent=count===0n?'ไม่พบ Whale Stake สำหรับกระเป๋านี้':'พบ '+count+' รายการใน Whale V12';
+ }catch(e){if(version===walletVersion)status.textContent='อ่าน Whale V12 ไม่สำเร็จ: '+e.message;}
+}
+
 async function refreshWallet(){
  if(!walletAddress)return;
  const current=walletAddress,version=++walletVersion;
  walletMessage('กำลังอ่านยอดเหรียญและรายการ Stake จาก BSC...');
  await Promise.all([
+  whaleView(current,version),
   ...Object.entries(WALLETTOKENS).map(async([key,token])=>{
    try{const [b,d]=await Promise.all([chainRead(token,'0x70a08231'+arg(current)),chainRead(token,'0x313ce567')]);if(version===walletVersion)$('bal-'+key).textContent=formatUnitsExact(BigInt(b),BigInt(d));}
    catch(e){if(version===walletVersion)$('bal-'+key).textContent='อ่านไม่ได้';}
