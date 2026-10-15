@@ -123,7 +123,7 @@ async function load(){
       status('รอยืนยัน Withdraw ในกระเป๋า');
       const tx=await wc.withdraw(i);
       status('กำลังรอธุรกรรม '+tx.hash);
-      await tx.wait();status('ถอนสำเร็จ · '+tx.hash);await load();
+      await tx.wait();status('ถอนสำเร็จ · '+tx.hash);setTimeout(()=>load(),0);
      }catch(e){status('Withdraw ไม่สำเร็จ: '+err(e),true)}
      finally{btn.disabled=false}
     };
