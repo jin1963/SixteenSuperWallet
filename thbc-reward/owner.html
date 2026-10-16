@@ -1,9 +1,26 @@
 <!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>THBC Whale Reward — Owner</title>
-<style>:root{font-family:system-ui;background:#07172e;color:#f9e8b3}body{margin:0;background:linear-gradient(140deg,#0b2b56,#07172e);min-height:100vh}main{max-width:750px;margin:auto;padding:25px 15px}h1{font-size:25px}h2{font-size:19px}.card{border:1px solid #6c7790;background:#0d2346;border-radius:16px;padding:18px;margin:14px 0}.warning{border-color:#d3a85e}label{display:block;font-size:13px;margin:14px 0 5px}input{box-sizing:border-box;width:100%;padding:12px;border-radius:8px;background:#06152b;border:1px solid #647b9e;color:white;font:inherit}button{margin:10px 6px 0 0;background:#edc976;color:#081a31;padding:11px 14px;border:0;border-radius:9px;font-weight:750;cursor:pointer}button:disabled{opacity:.45}p,small{line-height:1.7;color:#d2ddec}.stat{color:white;overflow-wrap:anywhere}.ok{color:#8fe8bd}.bad{color:#ffa8a8}a{color:#ffe2a0}</style></head><body><main>
+<style>:root{font-family:system-ui;background:#07172e;color:#f9e8b3}body{margin:0;background:linear-gradient(140deg,#0b2b56,#07172e);min-height:100vh}main{max-width:750px;margin:auto;padding:25px 15px}h1{font-size:25px}h2{font-size:19px}.card{border:1px solid #6c7790;background:#0d2346;border-radius:16px;padding:18px;margin:14px 0}.warning{border-color:#d3a85e}label{display:block;font-size:13px;margin:14px 0 5px}input{box-sizing:border-box;width:100%;padding:12px;border-radius:8px;background:#06152b;border:1px solid #647b9e;color:white;font:inherit}button{margin:10px 6px 0 0;background:#edc976;color:#081a31;padding:11px 14px;border:0;border-radius:9px;font-weight:750;cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}.fund-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin:12px 0}.fund-tile{border:1px solid #496888;border-radius:10px;padding:12px;background:#081a36}.fund-tile small{display:block;font-size:12px}.fund-tile strong{display:block;font-size:19px;color:white;overflow-wrap:anywhere;margin-top:5px}p,small{line-height:1.7;color:#d2ddec}.stat{color:white;overflow-wrap:anywhere}.ok{color:#8fe8bd}.bad{color:#ffa8a8}a{color:#ffe2a0}</style></head><body><main>
 <h1>THBC Whale Reward — Owner</h1><div class="card warning"><strong>MAINNET — TESTING</strong><p>สัญญา Deploy บน BSC Mainnet แล้ว แต่ระบบตรวจสอบ Tx Hash และการจ่ายรางวัลยังอยู่ระหว่างทดสอบ ห้ามเติมเงินกองทุนจำนวนมากหรือเปิดใช้งานกับลูกค้าจนกว่าจะตรวจสอบครบ</p></div>
 <div class="card"><h2>1. เชื่อม Owner Wallet</h2><button id="connect">Connect Wallet</button><div class="stat" id="wallet">ยังไม่ได้เชื่อม</div><label>THBC Reward Staking Contract (หลัง Deploy)</label><input id="contract" value="0xbE80B741d12e8CD4a94D90444F9aeCD2051c0c09" placeholder="0x... ที่อยู่สัญญาใหม่" autocomplete="off"><p><small>THBC Token: 0xe8d4687b77b5611ef1828fda7428034fa12a1beb · Whale Core: 0x248CEF21BD24C30AD22E29430864Fcaf11303957</small></p></div>
 <div class="card"><h2>2. ตรวจสอบธุรกรรม Whale</h2><label>Transaction Hash จาก BscScan</label><input id="tx" placeholder="0x... 64 ตัวอักษร" autocomplete="off"><button id="verify">ตรวจสอบ Tx Hash</button><p id="verification" class="stat">รอการตรวจสอบ</p><button id="record" disabled>Confirm & Auto Stake 500 วัน</button><p><small>ตรวจสอบสถานะสำเร็จ, Chain 56, Whale Core, buyPackage, ราคาจาก Package Contract, USDT Transfer จากผู้ซื้อ, จำนวน Confirmations และการบันทึกซ้ำก่อนยืนยัน</small></p></div>
 <div class="card"><h2>3. เติมกองทุน THBC</h2><label>จำนวน THBC</label><input id="fund-amount" placeholder="เช่น 33000" inputmode="decimal"><button id="approve">Approve THBC</button><button id="fund">Fund Reward Contract</button><p id="fund-status" class="stat">เติมเหรียญก่อนบันทึกรางวัล ระบบจะสำรอง THBC เต็มจำนวนตั้งแต่เริ่ม Stake</p></div>
+<div class="card"><h2>4. จัดการกองทุน THBC / Withdraw Surplus</h2>
+<p><small>Owner ถอนออกได้เฉพาะ THBC ส่วนเกินที่ยังไม่ถูกสำรองไว้ให้รางวัลลูกค้าเท่านั้น ส่วนที่ล็อกเป็น Stake แล้วจะถอนไม่ได้</small></p>
+<button id="refresh-fund" disabled>รีเฟรชยอดกองทุน</button>
+<div class="fund-grid">
+<div class="fund-tile"><small>THBC ในสัญญาทั้งหมด</small><strong id="fund-balance">—</strong></div>
+<div class="fund-tile"><small>THBC สำรองให้ลูกค้า</small><strong id="fund-reserved">—</strong></div>
+<div class="fund-tile"><small>THBC ส่วนเกินที่ถอนได้ (Surplus)</small><strong id="fund-surplus">—</strong></div>
+<div class="fund-tile"><small>THBC ที่ลูกค้าถอนแล้ว (สะสม)</small><strong id="fund-withdrawn">—</strong></div>
+</div>
+<p id="fund-overview-status" class="stat">เชื่อม Owner Wallet เพื่อดูยอดกองทุน</p>
+<label for="surplus-recipient">ที่อยู่กระเป๋ารับ THBC (Recipient)</label>
+<input id="surplus-recipient" placeholder="0x... กระเป๋ารับ THBC" autocomplete="off" spellcheck="false">
+<label for="surplus-amount">จำนวน THBC ที่ต้องการถอนจาก Surplus</label>
+<input id="surplus-amount" placeholder="เช่น 100" inputmode="decimal" autocomplete="off">
+<button id="withdraw-surplus" disabled>Withdraw Surplus THBC</button>
+<p id="surplus-status" class="stat">ต้องเป็น Owner ของ Reward Contract และต้องมี Surplus เพียงพอ</p>
+</div>
 <p><a href="https://bscscan.com/" target="_blank" rel="noopener">เปิด BscScan ↗</a></p></main>
 <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
 <script>
@@ -13,10 +30,10 @@ const USDT='0x55d398326f99059fF775485246999027B3197955';
 const THBC='0xe8d4687b77b5611ef1828fda7428034fa12a1beb';
 const coreAbi=['function packageContract() view returns(address)','function buyPackage(uint256 packageId,address sponsorInput) returns(uint256)'];
 const pkgAbi=['function packageForCore(uint256 packageId) view returns(uint256 priceUSDT,uint256 principalNC,uint16 dailyRewardBps,uint64 lockSeconds,bool active)'];
-const rewardAbi=['function owner() view returns(address)','function processedPurchase(bytes32) view returns(bool)','function rewardFor(uint256) pure returns(uint256)','function recordPurchase(bytes32,address,uint256) returns(uint256)','function fund(uint256)','function thbc() view returns(address)','function availableSurplus() view returns(uint256)'];
+const rewardAbi=['function owner() view returns(address)','function processedPurchase(bytes32) view returns(bool)','function rewardFor(uint256) pure returns(uint256)','function recordPurchase(bytes32,address,uint256) returns(uint256)','function fund(uint256)','function thbc() view returns(address)','function availableSurplus() view returns(uint256)','function totalReserved() view returns(uint256)','function totalWithdrawn() view returns(uint256)','function withdrawSurplus(address,uint256)'];
 const ercAbi=['function approve(address,uint256) returns(bool)','function decimals() view returns(uint8)','function balanceOf(address) view returns(uint256)'];
 const $=id=>document.getElementById(id);
-let provider,signer,verified=null;
+let provider,signer,verified=null,latestSurplus=null,fundBusy=false;
 const msg=(id,t,good)=>{$(id).textContent=t;$(id).className='stat '+(good===true?'ok':good===false?'bad':'');};
 const same=(a,b)=>a?.toLowerCase()===b?.toLowerCase();
 const validAddress=a=>/^0x[0-9a-fA-F]{40}$/.test(a);
@@ -39,9 +56,60 @@ async function readBscTransaction(hash){
  throw Error('อ่าน BSC RPC ไม่สำเร็จ กรุณาลองใหม่หรือตรวจสอบการเชื่อมต่อ: '+failures.join(' ; '));
 }
 function ensureEthers(){if(!window.ethers)throw Error('ไม่สามารถโหลด ethers.js ได้ กรุณาตรวจสอบอินเทอร์เน็ต');}
-async function connect(){ensureEthers();if(!window.ethereum)throw Error('กรุณาเปิดใน MetaMask หรือ Trust Wallet');provider=new ethers.BrowserProvider(window.ethereum);await provider.send('eth_requestAccounts',[]);const n=await provider.getNetwork();if(n.chainId!==56n)throw Error('กรุณาเปลี่ยนเป็น BSC Mainnet (56)');signer=await provider.getSigner();msg('wallet',await signer.getAddress(),true);}
+async function connect(){ensureEthers();if(!window.ethereum)throw Error('กรุณาเปิดใน MetaMask หรือ Trust Wallet');provider=new ethers.BrowserProvider(window.ethereum);await provider.send('eth_requestAccounts',[]);const n=await provider.getNetwork();if(n.chainId!==56n)throw Error('กรุณาเปลี่ยนเป็น BSC Mainnet (56)');signer=await provider.getSigner();msg('wallet',await signer.getAddress(),true);
+$('surplus-recipient').value=await signer.getAddress();
+$('refresh-fund').disabled=false;
+await refreshFundOverview();
+}
 function rewardContract(write=false){ensureEthers();const a=$('contract').value.trim();if(!validAddress(a))throw Error('กรุณากรอก Reward Contract Address ที่ Deploy แล้ว');return new ethers.Contract(a,rewardAbi,write?signer:provider);}
 async function requireOwner(){if(!signer)throw Error('เชื่อม Owner Wallet ก่อน');const c=rewardContract(true);if(!same(await c.owner(),await signer.getAddress()))throw Error('Wallet นี้ไม่ใช่ Owner ของ Reward Contract');if(!same(await c.thbc(),THBC))throw Error('Reward Contract ใช้ THBC Token ไม่ตรง');return c;}
+async function refreshFundOverview(){
+ latestSurplus=null;$('withdraw-surplus').disabled=true;
+ try{
+  const c=await requireOwner();
+  const t=new ethers.Contract(THBC,ercAbi,provider);
+  const [balance,reserved,surplus,withdrawn]=await Promise.all([
+   t.balanceOf(await c.getAddress()),c.totalReserved(),c.availableSurplus(),c.totalWithdrawn()
+  ]);
+  const format=n=>Number(ethers.formatUnits(n,18)).toLocaleString('en-US',{maximumFractionDigits:6});
+  $('fund-balance').textContent=format(balance)+' THBC';
+  $('fund-reserved').textContent=format(reserved)+' THBC';
+  $('fund-surplus').textContent=format(surplus)+' THBC';
+  $('fund-withdrawn').textContent=format(withdrawn)+' THBC';
+  latestSurplus=surplus;
+  $('withdraw-surplus').disabled=surplus===0n||fundBusy;
+  msg('fund-overview-status','อัปเดตยอดจาก Reward Contract แล้ว',true);
+ }catch(e){
+  for(const id of ['fund-balance','fund-reserved','fund-surplus','fund-withdrawn'])$(id).textContent='—';
+  msg('fund-overview-status','อ่านยอดกองทุนไม่สำเร็จ: '+detailError(e),false);
+ }
+}
+$('refresh-fund').onclick=refreshFundOverview;
+$('withdraw-surplus').onclick=async()=>{
+ if(fundBusy)return;
+ fundBusy=true;$('withdraw-surplus').disabled=true;
+ try{
+  const c=await requireOwner();
+  const recipient=$('surplus-recipient').value.trim();
+  if(!validAddress(recipient)||same(recipient,ethers.ZeroAddress))throw Error('ที่อยู่กระเป๋ารับ THBC ไม่ถูกต้อง');
+  const amountText=$('surplus-amount').value.trim();
+  if(!/^\d+(?:\.\d{1,18})?$/.test(amountText))throw Error('กรุณากรอกจำนวน THBC ให้ถูกต้อง (ทศนิยมไม่เกิน 18)');
+  const amount=ethers.parseUnits(amountText,18);
+  if(amount<=0n)throw Error('จำนวนที่ถอนต้องมากกว่า 0');
+  const available=await c.availableSurplus();
+  if(amount>available)throw Error('จำนวนเกิน Surplus ที่ถอนได้: '+ethers.formatUnits(available,18)+' THBC');
+  const to=ethers.getAddress(recipient);
+  const ok=window.confirm('ยืนยันถอน Surplus '+ethers.formatUnits(amount,18)+' THBC\nไปยัง: '+to+'\n\nตรวจสอบที่อยู่ให้ถูกต้องก่อนยืนยัน การโอนบนบล็อกเชนย้อนกลับไม่ได้');
+  if(!ok){msg('surplus-status','ยกเลิกการถอน');return}
+  const tx=await c.withdrawSurplus(to,amount);
+  msg('surplus-status','กำลังรอธุรกรรม Withdraw: '+tx.hash);
+  const receipt=await tx.wait();
+  if(receipt.status!==1)throw Error('ธุรกรรมถอนล้มเหลว');
+  msg('surplus-status','ถอน Surplus สำเร็จ: '+tx.hash,true);
+  $('surplus-amount').value='';
+ }catch(e){msg('surplus-status',detailError(e),false)}
+ finally{fundBusy=false;await refreshFundOverview()}
+};
 $('connect').onclick=async()=>{try{await connect()}catch(e){msg('wallet',detailError(e),false)}};
 $('verify').onclick=async()=>{
  verified=null;$('record').disabled=true;
@@ -84,9 +152,9 @@ $('record').onclick=async()=>{
   if(await c.processedPurchase(verified.hash))throw Error('Tx Hash นี้ถูกบันทึกแล้ว');
   const tx=await c.recordPurchase(verified.hash,verified.buyer,BigInt(verified.price));
   msg('verification','กำลังรอการยืนยัน '+tx.hash);
-  await tx.wait();msg('verification','บันทึก Reward Auto Stake สำเร็จ: '+tx.hash,true);verified=null;
+  await tx.wait();msg('verification','บันทึก Reward Auto Stake สำเร็จ: '+tx.hash,true);verified=null;await refreshFundOverview();
  }catch(e){msg('verification',detailError(e),false);}
 };
 $('approve').onclick=async()=>{try{const c=await requireOwner();const amount=ethers.parseUnits($('fund-amount').value.trim(),18);if(amount<=0n)throw Error('จำนวนต้องมากกว่า 0');const t=new ethers.Contract(THBC,ercAbi,signer);const tx=await t.approve(await c.getAddress(),amount);msg('fund-status','กำลังรอ Approve '+tx.hash);await tx.wait();msg('fund-status','Approve สำเร็จ',true);}catch(e){msg('fund-status',detailError(e),false)}};
-$('fund').onclick=async()=>{try{const c=await requireOwner();const amount=ethers.parseUnits($('fund-amount').value.trim(),18);if(amount<=0n)throw Error('จำนวนต้องมากกว่า 0');const tx=await c.fund(amount);msg('fund-status','กำลังรอ Fund '+tx.hash);await tx.wait();msg('fund-status','เติม THBC สำเร็จ: '+tx.hash,true);}catch(e){msg('fund-status',detailError(e),false)}};
+$('fund').onclick=async()=>{try{const c=await requireOwner();const amount=ethers.parseUnits($('fund-amount').value.trim(),18);if(amount<=0n)throw Error('จำนวนต้องมากกว่า 0');const tx=await c.fund(amount);msg('fund-status','กำลังรอ Fund '+tx.hash);await tx.wait();msg('fund-status','เติม THBC สำเร็จ: '+tx.hash,true);await refreshFundOverview();}catch(e){msg('fund-status',detailError(e),false)}};
 </script></body></html>
