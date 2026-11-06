@@ -68,17 +68,17 @@
 
       <section class="safety-note"><span class="safety-icon">◇</span><div><strong>SECURE BY DESIGN</strong><p>เว็บไซต์นี้อ่านข้อมูลกระเป๋าเท่านั้น ไม่ขอ Seed Phrase, Private Key, การเซ็นข้อความ หรือการอนุมัติโอนเหรียญ</p></div></section>
     </main>
-    <footer class="footer"><span>© <span id="year"></span> SIXTEEN CURRENCY</span><span>Built for BNB Smart Chain · V1 Wallet Gateway</span></footer>
+    <footer class="footer"><span>© <span id="year"></span> SIXTEEN CURRENCY</span><span>Built for BNB Smart Chain · Wallet Fix V1.3</span></footer>
   </div>
 
   <div id="walletModal" class="modal-backdrop" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-head"><div><p class="kicker">CONNECT SECURELY</p><h2 id="modalTitle">Choose Your Wallet</h2></div><button id="closeModal" class="modal-close" type="button" aria-label="Close">×</button></div>
-      <p class="modal-desc">เลือก Wallet ที่ติดตั้งอยู่บนอุปกรณ์ของคุณ</p>
+      <p class="modal-desc">เลือก Wallet ที่ติดตั้งอยู่บนอุปกรณ์ของคุณ · <strong id="walletVersion">Wallet Fix V1.3</strong></p>
       <button id="chooseMetaMask" class="wallet-option" type="button"><span class="wallet-mark fox">M</span><span><strong>MetaMask</strong><small>Browser extension / in-app browser</small></span><span class="option-arrow">↗</span></button>
       <button id="chooseTokenPocket" class="wallet-option" type="button"><span class="wallet-mark tp">TP</span><span><strong>TokenPocket</strong><small>TP Wallet in-app browser</small></span><span class="option-arrow">↗</span></button>
       <button id="chooseInjected" class="wallet-option" type="button"><span class="wallet-mark other">◈</span><span><strong>Other Web3 Wallet</strong><small>Detected injected wallet</small></span><span class="option-arrow">↗</span></button>
-      <p class="modal-foot">หากไม่พบ Wallet บนมือถือ ให้เปิดเว็บไซต์นี้ผ่านเบราว์เซอร์ภายในแอป MetaMask หรือ TokenPocket</p>
+      <p id="walletDetection" class="modal-foot" aria-live="polite">กำลังตรวจสอบกระเป๋า…</p><p class="modal-foot">หากไม่พบ MetaMask บนคอมพิวเตอร์ โปรดติดตั้งและเปิดใช้งานส่วนขยาย MetaMask ก่อน ส่วนบนมือถือให้เปิดเว็บในแอป Wallet</p>
     </div>
   </div>
 <script>
@@ -149,23 +149,49 @@ window.SIXTEEN_CONFIG = Object.freeze({
   function selectProvider(kind) {
     const providers = discover();
     if (kind === 'metamask') {
-      // Prefer MetaMask's own EIP-6963 announcement; do not fall back to Bitget.
+      // STRICT: Never infer MetaMask identity from isMetaMask or a generic
+      // window.ethereum when multiple extensions are installed.
+      // Bitget and other wallets may expose isMetaMask for compatibility.
       const official = providers.find(x => /^io\.metamask(?:\.flask)?$/i.test(x.rdns) &&
         !isBitget(x.provider, x.name, x.rdns));
-      return (official || providers.find(x => isMetaMask(x.provider, x.name, x.rdns)))?.provider || null;
+      if (official) return official.provider;
+      // Legacy exception for MetaMask's own in-app browser only.
+      const mobileMetaMask = /MetaMaskMobile/i.test(navigator.userAgent);
+      if (mobileMetaMask && window.ethereum?.isMetaMask &&
+          !isBitget(window.ethereum) && !isTokenPocket(window.ethereum)) {
+        return window.ethereum;
+      }
+      return null;
     }
     if (kind === 'tokenpocket') {
       return providers.find(x => isTokenPocket(x.provider, x.name, x.rdns))?.provider || null;
     }
-    // "Other" intentionally uses a different injected wallet when available.
-    return (providers.find(x => !isMetaMask(x.provider, x.name, x.rdns) &&
-      !isTokenPocket(x.provider, x.name, x.rdns)) || providers[0])?.provider || null;
+    return (providers.find(x => isBitget(x.provider, x.name, x.rdns)) ||
+      providers.find(x => !isMetaMask(x.provider, x.name, x.rdns) &&
+        !isTokenPocket(x.provider, x.name, x.rdns)) || providers[0])?.provider || null;
+  }
+
+  function showDetectedWallets() {
+    const providers = discover();
+    const labels = providers.map(x => {
+      const kind = isBitget(x.provider, x.name, x.rdns) ? 'Bitget' :
+        isTokenPocket(x.provider, x.name, x.rdns) ? 'TokenPocket' :
+        /^io\.metamask(?:\.flask)?$/i.test(x.rdns) ? 'MetaMask' :
+        x.rdns ? x.name : 'Unknown injected wallet';
+      return kind + (x.rdns ? ' [' + x.rdns.slice(0, 55) + ']' : '');
+    });
+    $('walletDetection').textContent = 'ตรวจพบ: ' +
+      (labels.length ? labels.join(' · ') : 'ไม่พบ Wallet Extension') +
+      ' | Wallet Fix V1.3';
   }
 
   function openModal() {
     state.modalReturnFocus = document.activeElement;
     $('walletModal').hidden = false;
     $('closeModal').focus();
+    window.dispatchEvent(new Event('eip6963:requestProvider'));
+    showDetectedWallets();
+    setTimeout(showDetectedWallets, 350);
   }
   function closeModal() {
     $('walletModal').hidden = true;
@@ -237,12 +263,17 @@ window.SIXTEEN_CONFIG = Object.freeze({
     return String(await request('eth_chainId')).toLowerCase() === cfg.chainId;
   }
   async function connect(kind) {
-    closeModal();
+    // Give EIP-6963 providers time to announce themselves on each click.
+    window.dispatchEvent(new Event('eip6963:requestProvider'));
+    await new Promise(resolve => setTimeout(resolve, 350));
+    showDetectedWallets();
     const provider = selectProvider(kind);
     if (!provider) {
-      message(kind === 'tokenpocket' ? 'ไม่พบ TokenPocket: โปรดเปิดเว็บผ่าน DApp Browser ของ TokenPocket' : kind === 'metamask' ? 'ไม่พบ MetaMask: โปรดติดตั้งส่วนขยายหรือเปิดเว็บผ่าน MetaMask Browser' : 'ไม่พบ Web3 Wallet: โปรดเปิดผ่าน MetaMask หรือ TokenPocket');
+      message(kind === 'tokenpocket' ? 'ไม่พบ TokenPocket: โปรดเปิดเว็บผ่าน DApp Browser ของ TokenPocket' : kind === 'metamask' ? 'ไม่พบ MetaMask ที่ยืนยันตัวตนได้: โปรดตรวจสอบ Chrome Extensions ว่าติดตั้งและเปิด MetaMask อยู่' : 'ไม่พบ Web3 Wallet: โปรดเปิดผ่าน MetaMask หรือ TokenPocket');
+      $('walletDetection').textContent += ' | ไม่สามารถเชื่อมต่อกระเป๋าที่เลือกได้';
       return;
     }
+    closeModal();
     state.provider = provider;
     message('กำลังขออนุญาตเชื่อมต่อ Wallet…');
     try {
