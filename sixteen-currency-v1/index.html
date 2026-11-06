@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#080d17">
+  <meta name="description" content="SIXTEEN CURRENCY — Wallet gateway on BNB Smart Chain">
+  <title>SIXTEEN CURRENCY | Wallet Gateway</title>
+  <style>
+:root{color-scheme:dark;--bg:#080d17;--surface:#111a29;--surface2:#151f30;--stroke:#293447;--gold:#e5c37a;--gold2:#b98e43;--white:#f4f3ee;--muted:#9aa5b6;--green:#71d5a2;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--white);min-height:100vh}button,a{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}a{color:inherit;text-decoration:none}a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}button[hidden],div[hidden],span[hidden]{display:none!important}.site-shell{width:min(1160px,calc(100% - 48px));margin:auto;position:relative;z-index:1}.ambient{position:fixed;pointer-events:none;border-radius:50%;filter:blur(85px);opacity:.17}.ambient-one{width:480px;height:480px;right:-230px;top:40px;background:#b58a3d}.ambient-two{width:360px;height:360px;left:-230px;top:510px;background:#203d69}.topbar{display:flex;justify-content:space-between;align-items:center;padding:26px 0;border-bottom:1px solid #ffffff15;gap:18px}.brand{display:flex;align-items:center;gap:13px}.brand-symbol{width:48px;height:48px;display:grid;place-items:center;border:1px solid var(--gold2);border-radius:13px;color:var(--gold);font:800 29px Georgia,serif;position:relative;background:linear-gradient(145deg,#242019,#0c121c)}.spark{font-size:11px;position:absolute;top:4px;right:5px}.brand-type{display:flex;flex-direction:column;gap:2px;letter-spacing:3px}.brand-type strong{font-size:18px;color:var(--gold);font-weight:800}.brand-type small{font-size:8px;color:#b9aa8b;letter-spacing:2.8px}.header-actions{display:flex;align-items:center;gap:20px}.network-pill{color:#c6cbd3;font-size:12px;white-space:nowrap}.dot,.status-light{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold);margin-right:7px;vertical-align:middle;box-shadow:0 0 10px #d6b96d66}.btn{border:1px solid transparent;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;gap:13px;padding:14px 20px;font-weight:700;font-size:13px;transition:transform .18s,background .18s}.btn:hover:not(:disabled){transform:translateY(-1px)}.btn-small{padding:11px 16px;font-size:12px}.btn-outline{background:#141c29;border-color:#72613f;color:var(--gold)}.btn-gold{background:linear-gradient(115deg,#f2d491,#c69b4d);color:#161511;box-shadow:0 10px 35px #b68b3424}.btn-ghost{background:transparent;border-color:#455065;color:#e6e9f0}.hero{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;min-height:450px;padding:62px 0 50px;gap:30px}.eyebrow,.kicker{font-size:10px;letter-spacing:2.7px;color:var(--gold);font-weight:750}.eyebrow{display:flex;align-items:center;gap:12px}.eyebrow-line{width:25px;height:1px;background:var(--gold)}.version{padding:4px 8px;border:1px solid #736042;border-radius:4px;font-size:9px;letter-spacing:1px}.hero h1{font-size:clamp(34px,4.7vw,63px);line-height:1.11;letter-spacing:-2px;margin:22px 0 20px;font-weight:850}.hero h1 span{color:var(--gold)}.hero-thai{color:#adb7c5;line-height:1.9;font-size:15px;max-width:540px}.hero-buttons{display:flex;gap:12px;flex-wrap:wrap;margin:27px 0 22px}.hero-notes{display:flex;gap:18px;flex-wrap:wrap;color:#8f9cac;font-size:11px}.hero-art{height:345px;position:relative;display:grid;place-items:center}.orbit{position:absolute;border-radius:50%;border:1px solid #b89b6140;box-shadow:inset 0 0 30px #c5a35a10}.orbit-outer{width:330px;height:330px;border-style:dashed;animation:spin 70s linear infinite}.orbit-inner{width:255px;height:255px;border:1px solid #e3b96e45;box-shadow:0 0 90px #b9924725}.hero-disc{width:190px;height:190px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#4a3d27,#181a1e 55%,#080d17);border:2px solid #b8944c;box-shadow:0 0 0 8px #e1bb6410,0 0 70px #d0a05230;display:grid;place-items:center;position:relative}.hero-disc>span:first-child{font:700 123px Georgia,serif;color:#e7c47c;text-shadow:0 2px 20px #e2b85a65}.disc-star{position:absolute;right:32px;top:36px;color:#f9dba3;font-size:23px}.orbit-caption{position:absolute;bottom:5px;letter-spacing:4px;color:#b89b65;font-size:10px}@keyframes spin{to{transform:rotate(360deg)}}.wallet-panel{border:1px solid #4c4538;border-radius:17px;background:linear-gradient(135deg,#17202d,#101722);padding:27px;box-shadow:0 12px 55px #0003}.section-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:24px}.section-heading h2{font-size:23px;letter-spacing:-.6px;margin:7px 0 0}.kicker{margin:0}.status-chip{font-size:11px;color:#d2b67d;border:1px solid #685639;background:#3c311d40;border-radius:30px;padding:9px 13px;white-space:nowrap}.status-chip.connected{color:var(--green);border-color:#2b7653;background:#173b2c70}.status-chip.connected .status-light{background:var(--green)}.wallet-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:12px}.wallet-card{background:#0b121f;border:1px solid #273345;border-radius:11px;padding:21px;min-width:0;display:flex;flex-direction:column;min-height:130px}.card-label{color:#9aa7ba;letter-spacing:1.5px;font-size:10px;font-weight:700}.wallet-address{font-size:15px;overflow-wrap:anywhere;margin-top:22px}.balance{font-size:29px;color:#f3d493;letter-spacing:-1px;margin-top:17px;font-weight:750}.card-hint{font-size:11px;color:#8591a4;margin-top:8px}.text-button{background:none;border:none;padding:0;color:var(--gold);text-align:left;margin-top:11px;font-size:11px;width:max-content}.wallet-footer{display:flex;align-items:center;justify-content:space-between;gap:15px;padding-top:19px;color:#9eabbc;font-size:12px;line-height:1.6}.wallet-footer-buttons{display:flex;gap:8px;flex-shrink:0}.ecosystem{padding:75px 0 45px}.section-aside{color:#697789;font-size:10px;letter-spacing:2px}.service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.service-card{border:1px solid #2d384b;background:linear-gradient(145deg,#192233,#101823);padding:22px;border-radius:13px;min-height:220px;display:flex;flex-direction:column}.service-top{display:flex;justify-content:space-between;align-items:center}.service-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:10px;background:#a17a3722;color:var(--gold);font-size:25px}.service-tag{font-size:8px;letter-spacing:.8px;border-radius:4px;padding:6px 7px;font-weight:800}.tag-live{color:#91e1b6;background:#20503980}.tag-soon{color:#d5b878;background:#52402770}.service-card h3{font-size:19px;margin:23px 0 7px}.service-card p{color:#9faab9;font-size:12px;line-height:1.65;margin:0 0 22px}.service-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:15px;border-top:1px solid #ffffff16;color:#8c99a9;font-size:11px}.service-link{color:var(--gold)}.service-link:hover{text-decoration:underline}.safety-note{display:flex;gap:18px;align-items:center;padding:20px 23px;border:1px solid #2d3848;background:#111925;border-radius:12px;margin:12px 0 55px}.safety-icon{color:var(--gold);font-size:31px}.safety-note strong{color:#e3c381;font-size:11px;letter-spacing:1.4px}.safety-note p{font-size:12px;line-height:1.7;color:#9ea9b9;margin:6px 0 0}.footer{display:flex;justify-content:space-between;gap:12px;padding:22px 0 35px;border-top:1px solid #ffffff14;color:#778596;font-size:10px;letter-spacing:.8px}.modal-backdrop{position:fixed;inset:0;background:#03060cce;z-index:10;display:flex;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(8px)}.modal{width:min(460px,100%);border:1px solid #786344;border-radius:17px;background:#111b2a;padding:25px;box-shadow:0 30px 80px #0009}.modal-head{display:flex;justify-content:space-between;align-items:start}.modal-head h2{margin:7px 0;font-size:23px}.modal-close{background:none;border:0;color:#d8d9de;font-size:29px;line-height:1}.modal-desc,.modal-foot{color:#9ca8b8;font-size:12px;line-height:1.7}.wallet-option{width:100%;background:#172335;border:1px solid #344155;border-radius:11px;color:#fff;display:flex;align-items:center;text-align:left;padding:14px;gap:13px;margin:11px 0}.wallet-option:hover{border-color:#c5a566}.wallet-option>span:nth-child(2){display:flex;flex-direction:column;gap:4px;flex:1}.wallet-option small{color:#8e9bab;font-size:10px}.wallet-mark{width:43px;height:43px;display:grid;place-items:center;border-radius:12px;font-weight:800}.fox{background:#9a4e20;color:#ffd6a5}.tp{background:#1a5e8a;color:#d8f4ff}.other{background:#524528;color:#f7d68e}.option-arrow{color:var(--gold)}.modal-foot{margin-bottom:0}
+@media(max-width:900px){.hero{grid-template-columns:1fr .65fr}.hero-art{transform:scale(.8);margin:-30px}.service-grid{grid-template-columns:repeat(2,1fr)}.wallet-grid{grid-template-columns:1fr 1fr}.wallet-card:first-child{grid-column:1/-1;min-height:110px}.wallet-address{margin-top:13px}}
+@media(max-width:650px){.site-shell{width:min(100% - 30px,560px)}.topbar{padding:17px 0}.brand-symbol{width:39px;height:39px;font-size:24px}.brand-type strong{font-size:14px;letter-spacing:2px}.brand-type small{font-size:7px;letter-spacing:1.7px}.network-pill{display:none}.header-actions .btn{font-size:10px;padding:10px 11px}.hero{grid-template-columns:1fr;padding:52px 0 33px;gap:0}.hero h1{font-size:clamp(32px,9vw,48px);letter-spacing:-1.3px}.hero-thai{font-size:14px}.hero-art{height:210px;transform:scale(.65);margin:-45px 0 -35px}.hero-notes{gap:10px;font-size:10px}.wallet-panel{padding:19px}.section-heading{align-items:flex-start;gap:12px}.section-heading h2{font-size:20px}.status-chip{font-size:9px;padding:8px}.wallet-grid{grid-template-columns:1fr 1fr;gap:9px}.wallet-card{padding:14px;min-height:105px}.wallet-card:first-child{grid-column:1/-1}.balance{font-size:21px}.card-label{font-size:9px}.card-hint{font-size:9px}.wallet-footer{flex-direction:column;align-items:flex-start}.wallet-footer-buttons{width:100%}.wallet-footer-buttons .btn{flex:1}.ecosystem{padding:55px 0 30px}.service-grid{gap:10px}.service-card{padding:15px;min-height:205px}.service-tag{font-size:7px}.service-card h3{font-size:17px}.service-card p{font-size:11px}.service-bottom{font-size:10px}.section-aside{display:none}.footer{flex-direction:column}.safety-note{margin-bottom:35px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+  </style>
+
+
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div><div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="SIXTEEN CURRENCY home">
+        <span class="brand-symbol">S<span class="spark">✦</span></span>
+        <span class="brand-type"><strong>SIXTEEN</strong><small>CURRENCY PLATFORM</small></span>
+      </a>
+      <div class="header-actions">
+        <span class="network-pill"><span class="dot"></span> BNB Smart Chain</span>
+        <button class="btn btn-outline btn-small" id="connectTop" type="button">Connect Wallet</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> THE SIXTEEN ECOSYSTEM <span class="version">V1.0</span></div>
+          <h1 id="hero-title">ONE PLATFORM.<br><span>LIMITLESS POTENTIAL.</span></h1>
+          <p class="hero-thai">ศูนย์กลางเชื่อมต่อกระเป๋า Web3 และเข้าถึงบริการในเครือ SIXTEEN CURRENCY ผ่านแพลตฟอร์มเดียว</p>
+          <div class="hero-buttons">
+            <button class="btn btn-gold" id="connectHero" type="button"><span aria-hidden="true">◈</span> Connect Your Wallet <span aria-hidden="true">↗</span></button>
+            <a class="btn btn-ghost" href="#ecosystem">Explore Ecosystem <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-notes"><span>✓ MetaMask &amp; TokenPocket</span><span>✓ BNB Chain Mainnet</span><span>✓ No account required</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true"><div class="orbit orbit-outer"></div><div class="orbit orbit-inner"></div><div class="hero-disc"><span>S</span><span class="disc-star">✦</span></div><div class="orbit-caption">SIXTEEN • CURRENCY •</div></div>
+      </section>
+
+      <section class="wallet-panel" aria-labelledby="wallet-title">
+        <div class="section-heading"><div><p class="kicker">YOUR GATEWAY</p><h2 id="wallet-title">Wallet Overview</h2></div><span id="connectionStatus" class="status-chip" role="status" aria-live="polite"><span class="status-light"></span> Not connected</span></div>
+        <div class="wallet-grid">
+          <div class="wallet-card"><span class="card-label">CONNECTED ADDRESS</span><strong id="walletAddress" class="wallet-address">Connect wallet to begin</strong><button id="copyAddress" class="text-button" type="button" disabled>Copy address ↗</button></div>
+          <div class="wallet-card"><span class="card-label">BNB BALANCE</span><strong class="balance" id="bnbBalance">—</strong><span class="card-hint">BNB Smart Chain (BEP-20)</span></div>
+          <div class="wallet-card"><span class="card-label">STC BALANCE</span><strong class="balance" id="stcBalance">—</strong><span class="card-hint">SIXTEEN Token · BEP-20</span></div>
+        </div>
+        <div class="wallet-footer"><span id="walletMessage" role="status" aria-live="polite">เชื่อม MetaMask หรือ TokenPocket เพื่อดูยอดสินทรัพย์ของคุณ</span><div class="wallet-footer-buttons"><button class="btn btn-outline btn-small" id="switchNetwork" type="button" hidden>Switch to BNB Chain</button><button class="btn btn-outline btn-small" id="refreshBalances" type="button" disabled>↻ Refresh</button></div></div>
+      </section>
+
+      <section class="ecosystem" id="ecosystem" aria-labelledby="eco-title">
+        <div class="section-heading"><div><p class="kicker">DISCOVER THE NETWORK</p><h2 id="eco-title">Explore Our Ecosystem</h2></div><span class="section-aside">CONNECTED BY SIXTEEN</span></div>
+        <div class="service-grid">
+          <article class="service-card"><div class="service-top"><span class="service-icon">◈</span><span class="service-tag tag-soon">COMING SOON</span></div><h3>STC</h3><p>Sixteen Token · Main Currency</p><span class="service-bottom">Wallet balance available <span>◇</span></span></article>
+          <article class="service-card"><div class="service-top"><span class="service-icon">↗</span><span class="service-tag tag-live">EXISTING DAPP</span></div><h3>NC Trading</h3><p>Access the existing NC Trading platform.</p><a class="service-bottom service-link" href="https://sixteeninter-ux.github.io/NCTrading/" target="_blank" rel="noopener noreferrer">Open existing DApp <span>↗</span></a></article>
+          <article class="service-card"><div class="service-top"><span class="service-icon">✧</span><span class="service-tag tag-live">EXISTING DAPP</span></div><h3>THBC Reward</h3><p>View THBC reward and staking records.</p><a class="service-bottom service-link" href="https://jin1963.github.io/SixteenSuperWallet/thbc-reward/member.html" target="_blank" rel="noopener noreferrer">Open member DApp <span>↗</span></a></article>
+          <article class="service-card"><div class="service-top"><span class="service-icon">♜</span><span class="service-tag tag-soon">COMING SOON</span></div><h3>Whale</h3><p>Whale package gateway and information.</p><span class="service-bottom">Integration planned <span>◇</span></span></article>
+        </div>
+      </section>
+
+      <section class="safety-note"><span class="safety-icon">◇</span><div><strong>SECURE BY DESIGN</strong><p>เว็บไซต์นี้อ่านข้อมูลกระเป๋าเท่านั้น ไม่ขอ Seed Phrase, Private Key, การเซ็นข้อความ หรือการอนุมัติโอนเหรียญ</p></div></section>
+    </main>
+    <footer class="footer"><span>© <span id="year"></span> SIXTEEN CURRENCY</span><span>Built for BNB Smart Chain · V1 Wallet Gateway</span></footer>
+  </div>
+
+  <div id="walletModal" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head"><div><p class="kicker">CONNECT SECURELY</p><h2 id="modalTitle">Choose Your Wallet</h2></div><button id="closeModal" class="modal-close" type="button" aria-label="Close">×</button></div>
+      <p class="modal-desc">เลือก Wallet ที่ติดตั้งอยู่บนอุปกรณ์ของคุณ</p>
+      <button id="chooseMetaMask" class="wallet-option" type="button"><span class="wallet-mark fox">M</span><span><strong>MetaMask</strong><small>Browser extension / in-app browser</small></span><span class="option-arrow">↗</span></button>
+      <button id="chooseTokenPocket" class="wallet-option" type="button"><span class="wallet-mark tp">TP</span><span><strong>TokenPocket</strong><small>TP Wallet in-app browser</small></span><span class="option-arrow">↗</span></button>
+      <button id="chooseInjected" class="wallet-option" type="button"><span class="wallet-mark other">◈</span><span><strong>Other Web3 Wallet</strong><small>Detected injected wallet</small></span><span class="option-arrow">↗</span></button>
+      <p class="modal-foot">หากไม่พบ Wallet บนมือถือ ให้เปิดเว็บไซต์นี้ผ่านเบราว์เซอร์ภายในแอป MetaMask หรือ TokenPocket</p>
+    </div>
+  </div>
+<script>
+// SIXTEEN CURRENCY V1 — read-only wallet gateway settings.
+// No private keys, database passwords, or wallet secrets belong in this file.
+window.SIXTEEN_CONFIG = Object.freeze({
+  chainId: '0x38',
+  chainName: 'BNB Smart Chain Mainnet',
+  rpcUrls: ['https://bsc-dataseed.bnbchain.org/'],
+  blockExplorerUrls: ['https://bscscan.com/'],
+  nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 },
+  stcToken: '0x12730990De18c6864e45d22f007EBebaFbf6c76b',
+  stcFallbackDecimals: 18
+});
+
+(() => {
+  'use strict';
+  const cfg = window.SIXTEEN_CONFIG;
+  const $ = id => document.getElementById(id);
+  const state = { provider: null, address: null, providerHandlers: null, modalReturnFocus: null };
+  const announced = new Map();
+  const short = s => s ? `${s.slice(0, 7)}…${s.slice(-5)}` : '—';
+  const setText = (id, value) => { $(id).textContent = value; };
+  const message = (text) => setText('walletMessage', text);
+  const hexAddress = addr => /^0x[0-9a-fA-F]{40}$/.test(addr);
+
+  function discover() {
+    const found = [];
+    const push = (provider, name) => {
+      if (provider && typeof provider.request === 'function' && !found.some(x => x.provider === provider)) found.push({ provider, name });
+    };
+    for (const item of announced.values()) push(item.provider, item.info?.name || 'Web3 Wallet');
+    push(window.tokenpocket?.ethereum, 'TokenPocket');
+    push(window.tp?.ethereum, 'TokenPocket');
+    const eth = window.ethereum;
+    if (Array.isArray(eth?.providers)) eth.providers.forEach(p => push(p, p.isTokenPocket ? 'TokenPocket' : p.isMetaMask ? 'MetaMask' : 'Web3 Wallet'));
+    push(eth, eth?.isTokenPocket ? 'TokenPocket' : eth?.isMetaMask ? 'MetaMask' : 'Web3 Wallet');
+    return found;
+  }
+
+  function selectProvider(kind) {
+    const providers = discover();
+    if (kind === 'metamask') return providers.find(x => x.provider.isMetaMask && !x.provider.isTokenPocket)?.provider || providers.find(x => /metamask/i.test(x.name))?.provider || null;
+    if (kind === 'tokenpocket') return providers.find(x => x.provider.isTokenPocket)?.provider || providers.find(x => /tokenpocket/i.test(x.name))?.provider || null;
+    return providers[0]?.provider || null;
+  }
+
+  function openModal() {
+    state.modalReturnFocus = document.activeElement;
+    $('walletModal').hidden = false;
+    $('closeModal').focus();
+  }
+  function closeModal() {
+    $('walletModal').hidden = true;
+    state.modalReturnFocus?.focus?.();
+  }
+  function setConnected(connected) {
+    $('connectionStatus').classList.toggle('connected', connected);
+    $('connectionStatus').innerHTML = connected ? '<span class="status-light"></span> Connected' : '<span class="status-light"></span> Not connected';
+    $('refreshBalances').disabled = !connected;
+    $('copyAddress').disabled = !connected;
+    setText('connectTop', connected ? 'Change Wallet' : 'Connect Wallet');
+    setText('connectHero', connected ? '◈  Change Wallet  ↗' : '◈  Connect Your Wallet  ↗');
+  }
+  function resetWallet(note = 'กรุณาเชื่อม Wallet เพื่อดูข้อมูล') {
+    state.address = null;
+    setConnected(false);
+    setText('walletAddress', 'Connect wallet to begin');
+    setText('bnbBalance', '—');
+    setText('stcBalance', '—');
+    $('switchNetwork').hidden = true;
+    message(note);
+  }
+  function detachEvents() {
+    if (!state.provider || !state.providerHandlers) return;
+    const { accounts, chain } = state.providerHandlers;
+    state.provider.removeListener?.('accountsChanged', accounts);
+    state.provider.removeListener?.('chainChanged', chain);
+    state.providerHandlers = null;
+  }
+  function attachEvents(provider) {
+    detachEvents();
+    const accounts = (a) => {
+      if (!Array.isArray(a) || !a.length) { resetWallet('Wallet ถูกตัดการเชื่อมต่อ'); return; }
+      if (!hexAddress(a[0])) { resetWallet('ที่อยู่ Wallet ไม่ถูกต้อง'); return; }
+      state.address = a[0];
+      setText('walletAddress', short(a[0]));
+      refresh().catch(e => message(errorMessage(e)));
+    };
+    const chain = () => refresh().catch(e => message(errorMessage(e)));
+    provider.on?.('accountsChanged', accounts);
+    provider.on?.('chainChanged', chain);
+    state.providerHandlers = { accounts, chain };
+  }
+  function errorMessage(e) {
+    if (e?.code === 4001) return 'คุณยกเลิกคำขอใน Wallet';
+    if (e?.code === -32002) return 'มีคำขอค้างอยู่ กรุณาเปิด Wallet เพื่อยืนยัน';
+    return e?.shortMessage || e?.message || 'ไม่สามารถอ่านข้อมูล Wallet ได้';
+  }
+  async function request(method, params = []) {
+    if (!state.provider) throw new Error('ยังไม่ได้เลือก Wallet');
+    return state.provider.request({ method, params });
+  }
+  async function ensureChain() {
+    const chain = await request('eth_chainId');
+    if (String(chain).toLowerCase() === cfg.chainId) return true;
+    try {
+      await request('wallet_switchEthereumChain', [{ chainId: cfg.chainId }]);
+    } catch (e) {
+      if (e?.code !== 4902) throw e;
+      await request('wallet_addEthereumChain', [{
+        chainId: cfg.chainId,
+        chainName: cfg.chainName,
+        nativeCurrency: cfg.nativeCurrency,
+        rpcUrls: cfg.rpcUrls,
+        blockExplorerUrls: cfg.blockExplorerUrls
+      }]);
+      await request('wallet_switchEthereumChain', [{ chainId: cfg.chainId }]);
+    }
+    return String(await request('eth_chainId')).toLowerCase() === cfg.chainId;
+  }
+  async function connect(kind) {
+    closeModal();
+    const provider = selectProvider(kind);
+    if (!provider) {
+      message(kind === 'tokenpocket' ? 'ไม่พบ TokenPocket: โปรดเปิดเว็บผ่าน DApp Browser ของ TokenPocket' : kind === 'metamask' ? 'ไม่พบ MetaMask: โปรดติดตั้งส่วนขยายหรือเปิดเว็บผ่าน MetaMask Browser' : 'ไม่พบ Web3 Wallet: โปรดเปิดผ่าน MetaMask หรือ TokenPocket');
+      return;
+    }
+    state.provider = provider;
+    message('กำลังขออนุญาตเชื่อมต่อ Wallet…');
+    try {
+      const accounts = await request('eth_requestAccounts');
+      if (!Array.isArray(accounts) || !hexAddress(accounts[0])) throw new Error('Wallet ไม่ส่งที่อยู่กระเป๋าที่ถูกต้อง');
+      state.address = accounts[0];
+      attachEvents(provider);
+      setText('walletAddress', short(state.address));
+      setConnected(true);
+      try {
+        const switched = await ensureChain();
+        if (!switched) throw new Error('กรุณาเปลี่ยนเครือข่ายเป็น BNB Smart Chain');
+      } catch (e) {
+        $('switchNetwork').hidden = false;
+        setText('bnbBalance', '—'); setText('stcBalance', '—');
+        message('เชื่อม Wallet แล้ว แต่ยังไม่ได้เปลี่ยนเป็น BNB Smart Chain: ' + errorMessage(e));
+        return;
+      }
+      await refresh();
+    } catch (e) {
+      if (!state.address) resetWallet(errorMessage(e));
+      else message(errorMessage(e));
+    }
+  }
+  function formatUnits(value, decimals, maxFraction = 5) {
+    const n = BigInt(value);
+    const base = 10n ** BigInt(decimals);
+    const whole = n / base;
+    const fraction = (n % base).toString().padStart(decimals, '0').slice(0, maxFraction).replace(/0+$/, '');
+    return whole.toLocaleString('en-US') + (fraction ? '.' + fraction : '');
+  }
+  async function readSTC(address) {
+    const data = '0x70a08231' + address.slice(2).toLowerCase().padStart(64, '0');
+    const raw = await request('eth_call', [{ to: cfg.stcToken, data }, 'latest']);
+    const rawDecimals = await request('eth_call', [{ to: cfg.stcToken, data: '0x313ce567' }, 'latest']).catch(() => null);
+    const decimals = rawDecimals && rawDecimals !== '0x' ? Number(BigInt(rawDecimals)) : cfg.stcFallbackDecimals;
+    if (!Number.isInteger(decimals) || decimals < 0 || decimals > 36) throw new Error('STC decimals ไม่ถูกต้อง');
+    return formatUnits(raw, decimals, 4);
+  }
+  async function refresh() {
+    if (!state.provider || !state.address) return;
+    const chain = String(await request('eth_chainId')).toLowerCase();
+    if (chain !== cfg.chainId) {
+      $('switchNetwork').hidden = false;
+      setText('bnbBalance', '—'); setText('stcBalance', '—');
+      message('กรุณาเปลี่ยนเครือข่ายเป็น BNB Smart Chain Mainnet');
+      return;
+    }
+    $('switchNetwork').hidden = true;
+    setConnected(true);
+    setText('walletAddress', short(state.address));
+    setText('bnbBalance', 'Loading…'); setText('stcBalance', 'Loading…');
+    const address = state.address;
+    const [bnb, stc] = await Promise.allSettled([
+      request('eth_getBalance', [address, 'latest']),
+      readSTC(address)
+    ]);
+    if (address !== state.address) return;
+    setText('bnbBalance', bnb.status === 'fulfilled' ? formatUnits(bnb.value, 18, 5) : 'Unavailable');
+    setText('stcBalance', stc.status === 'fulfilled' ? stc.value : 'Unavailable');
+    message(bnb.status === 'fulfilled' && stc.status === 'fulfilled' ? 'อ่านข้อมูลสำเร็จ · BNB Smart Chain Mainnet' : 'เชื่อมต่อแล้ว แต่มีบางยอดอ่านไม่สำเร็จ กรุณาลอง Refresh');
+  }
+
+  window.addEventListener('eip6963:announceProvider', event => {
+    if (event.detail?.provider && event.detail?.info?.uuid) announced.set(event.detail.info.uuid, event.detail);
+  });
+  window.dispatchEvent(new Event('eip6963:requestProvider'));
+  $('year').textContent = String(new Date().getFullYear());
+  $('connectTop').addEventListener('click', openModal);
+  $('connectHero').addEventListener('click', openModal);
+  $('closeModal').addEventListener('click', closeModal);
+  $('walletModal').addEventListener('click', e => { if (e.target === $('walletModal')) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('walletModal').hidden) closeModal(); });
+  $('chooseMetaMask').addEventListener('click', () => connect('metamask'));
+  $('chooseTokenPocket').addEventListener('click', () => connect('tokenpocket'));
+  $('chooseInjected').addEventListener('click', () => connect('other'));
+  $('switchNetwork').addEventListener('click', async () => {
+    try { await ensureChain(); await refresh(); } catch (e) { message('เปลี่ยนเครือข่ายไม่สำเร็จ: ' + errorMessage(e)); }
+  });
+  $('refreshBalances').addEventListener('click', () => refresh().catch(e => message(errorMessage(e))));
+  $('copyAddress').addEventListener('click', async () => {
+    if (!state.address) return;
+    try { await navigator.clipboard.writeText(state.address); message('คัดลอกที่อยู่ Wallet แล้ว'); }
+    catch { message('ไม่สามารถคัดลอกอัตโนมัติได้: ' + state.address); }
+  });
+})();
+
+</script>
+</body>
+</html>
