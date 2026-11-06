@@ -105,25 +105,61 @@ window.SIXTEEN_CONFIG = Object.freeze({
   const message = (text) => setText('walletMessage', text);
   const hexAddress = addr => /^0x[0-9a-fA-F]{40}$/.test(addr);
 
+  // EIP-6963 wallet identity is preferred over compatibility flags.
+  // Bitget Wallet can advertise isMetaMask for dApp compatibility: never treat
+  // that flag alone as proof that the provider belongs to MetaMask.
+  function isBitget(p, name = '', rdns = '') {
+    return !!(p?.isBitKeep || p?.isBitget || p?.isBitgetWallet || p?.isBitKeepWallet) ||
+      /bitget|bitkeep/i.test(name + ' ' + rdns);
+  }
+  function isTokenPocket(p, name = '', rdns = '') {
+    return !!(p?.isTokenPocket || p?.isTP) || /tokenpocket|tp wallet/i.test(name + ' ' + rdns);
+  }
+  function isMetaMask(p, name = '', rdns = '') {
+    if (isBitget(p, name, rdns) || isTokenPocket(p, name, rdns)) return false;
+    if (/^io\.metamask(?:\.flask)?$/i.test(rdns)) return true;
+    if (/metamask/i.test(name)) return true;
+    return !!p?.isMetaMask;
+  }
   function discover() {
     const found = [];
-    const push = (provider, name) => {
-      if (provider && typeof provider.request === 'function' && !found.some(x => x.provider === provider)) found.push({ provider, name });
+    const push = (provider, name, rdns = '') => {
+      if (provider && typeof provider.request === 'function' && !found.some(x => x.provider === provider)) {
+        found.push({ provider, name, rdns });
+      }
     };
-    for (const item of announced.values()) push(item.provider, item.info?.name || 'Web3 Wallet');
+    // Announced providers identify themselves by wallet name and reverse DNS.
+    for (const item of announced.values()) {
+      push(item.provider, item.info?.name || 'Web3 Wallet', item.info?.rdns || '');
+    }
+    // Add wallet-specific providers before generic window.ethereum.
     push(window.tokenpocket?.ethereum, 'TokenPocket');
     push(window.tp?.ethereum, 'TokenPocket');
+    push(window.bitkeep?.ethereum, 'Bitget Wallet', 'com.bitget.wallet');
+    push(window.bitget?.ethereum, 'Bitget Wallet', 'com.bitget.wallet');
     const eth = window.ethereum;
-    if (Array.isArray(eth?.providers)) eth.providers.forEach(p => push(p, p.isTokenPocket ? 'TokenPocket' : p.isMetaMask ? 'MetaMask' : 'Web3 Wallet'));
-    push(eth, eth?.isTokenPocket ? 'TokenPocket' : eth?.isMetaMask ? 'MetaMask' : 'Web3 Wallet');
+    if (Array.isArray(eth?.providers)) {
+      eth.providers.forEach(p => push(p,
+        isBitget(p) ? 'Bitget Wallet' : isTokenPocket(p) ? 'TokenPocket' : p.isMetaMask ? 'MetaMask' : 'Web3 Wallet'));
+    }
+    push(eth, isBitget(eth) ? 'Bitget Wallet' : isTokenPocket(eth) ? 'TokenPocket' : eth?.isMetaMask ? 'MetaMask' : 'Web3 Wallet');
     return found;
   }
 
   function selectProvider(kind) {
     const providers = discover();
-    if (kind === 'metamask') return providers.find(x => x.provider.isMetaMask && !x.provider.isTokenPocket)?.provider || providers.find(x => /metamask/i.test(x.name))?.provider || null;
-    if (kind === 'tokenpocket') return providers.find(x => x.provider.isTokenPocket)?.provider || providers.find(x => /tokenpocket/i.test(x.name))?.provider || null;
-    return providers[0]?.provider || null;
+    if (kind === 'metamask') {
+      // Prefer MetaMask's own EIP-6963 announcement; do not fall back to Bitget.
+      const official = providers.find(x => /^io\.metamask(?:\.flask)?$/i.test(x.rdns) &&
+        !isBitget(x.provider, x.name, x.rdns));
+      return (official || providers.find(x => isMetaMask(x.provider, x.name, x.rdns)))?.provider || null;
+    }
+    if (kind === 'tokenpocket') {
+      return providers.find(x => isTokenPocket(x.provider, x.name, x.rdns))?.provider || null;
+    }
+    // "Other" intentionally uses a different injected wallet when available.
+    return (providers.find(x => !isMetaMask(x.provider, x.name, x.rdns) &&
+      !isTokenPocket(x.provider, x.name, x.rdns)) || providers[0])?.provider || null;
   }
 
   function openModal() {
