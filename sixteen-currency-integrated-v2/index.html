@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#080d17">
+  <meta name="description" content="SIXTEEN CURRENCY — Wallet gateway on BNB Smart Chain">
+  <title>SIXTEEN CURRENCY | Wallet &amp; Staking Dashboard</title>
+  <style>
+:root{color-scheme:dark;--bg:#080d17;--surface:#111a29;--surface2:#151f30;--stroke:#293447;--gold:#e5c37a;--gold2:#b98e43;--white:#f4f3ee;--muted:#9aa5b6;--green:#71d5a2;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--white);min-height:100vh}button,a{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}a{color:inherit;text-decoration:none}a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}button[hidden],div[hidden],span[hidden]{display:none!important}.site-shell{width:min(1160px,calc(100% - 48px));margin:auto;position:relative;z-index:1}.ambient{position:fixed;pointer-events:none;border-radius:50%;filter:blur(85px);opacity:.17}.ambient-one{width:480px;height:480px;right:-230px;top:40px;background:#b58a3d}.ambient-two{width:360px;height:360px;left:-230px;top:510px;background:#203d69}.topbar{display:flex;justify-content:space-between;align-items:center;padding:26px 0;border-bottom:1px solid #ffffff15;gap:18px}.brand{display:flex;align-items:center;gap:13px}.brand-symbol{width:48px;height:48px;display:grid;place-items:center;border:1px solid var(--gold2);border-radius:13px;color:var(--gold);font:800 29px Georgia,serif;position:relative;background:linear-gradient(145deg,#242019,#0c121c)}.spark{font-size:11px;position:absolute;top:4px;right:5px}.brand-type{display:flex;flex-direction:column;gap:2px;letter-spacing:3px}.brand-type strong{font-size:18px;color:var(--gold);font-weight:800}.brand-type small{font-size:8px;color:#b9aa8b;letter-spacing:2.8px}.header-actions{display:flex;align-items:center;gap:20px}.network-pill{color:#c6cbd3;font-size:12px;white-space:nowrap}.dot,.status-light{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold);margin-right:7px;vertical-align:middle;box-shadow:0 0 10px #d6b96d66}.btn{border:1px solid transparent;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;gap:13px;padding:14px 20px;font-weight:700;font-size:13px;transition:transform .18s,background .18s}.btn:hover:not(:disabled){transform:translateY(-1px)}.btn-small{padding:11px 16px;font-size:12px}.btn-outline{background:#141c29;border-color:#72613f;color:var(--gold)}.btn-gold{background:linear-gradient(115deg,#f2d491,#c69b4d);color:#161511;box-shadow:0 10px 35px #b68b3424}.btn-ghost{background:transparent;border-color:#455065;color:#e6e9f0}.hero{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;min-height:450px;padding:62px 0 50px;gap:30px}.eyebrow,.kicker{font-size:10px;letter-spacing:2.7px;color:var(--gold);font-weight:750}.eyebrow{display:flex;align-items:center;gap:12px}.eyebrow-line{width:25px;height:1px;background:var(--gold)}.version{padding:4px 8px;border:1px solid #736042;border-radius:4px;font-size:9px;letter-spacing:1px}.hero h1{font-size:clamp(34px,4.7vw,63px);line-height:1.11;letter-spacing:-2px;margin:22px 0 20px;font-weight:850}.hero h1 span{color:var(--gold)}.hero-thai{color:#adb7c5;line-height:1.9;font-size:15px;max-width:540px}.hero-buttons{display:flex;gap:12px;flex-wrap:wrap;margin:27px 0 22px}.hero-notes{display:flex;gap:18px;flex-wrap:wrap;color:#8f9cac;font-size:11px}.hero-art{height:345px;position:relative;display:grid;place-items:center}.orbit{position:absolute;border-radius:50%;border:1px solid #b89b6140;box-shadow:inset 0 0 30px #c5a35a10}.orbit-outer{width:330px;height:330px;border-style:dashed;animation:spin 70s linear infinite}.orbit-inner{width:255px;height:255px;border:1px solid #e3b96e45;box-shadow:0 0 90px #b9924725}.hero-disc{width:190px;height:190px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#4a3d27,#181a1e 55%,#080d17);border:2px solid #b8944c;box-shadow:0 0 0 8px #e1bb6410,0 0 70px #d0a05230;display:grid;place-items:center;position:relative}.hero-disc>span:first-child{font:700 123px Georgia,serif;color:#e7c47c;text-shadow:0 2px 20px #e2b85a65}.disc-star{position:absolute;right:32px;top:36px;color:#f9dba3;font-size:23px}.orbit-caption{position:absolute;bottom:5px;letter-spacing:4px;color:#b89b65;font-size:10px}@keyframes spin{to{transform:rotate(360deg)}}.wallet-panel{border:1px solid #4c4538;border-radius:17px;background:linear-gradient(135deg,#17202d,#101722);padding:27px;box-shadow:0 12px 55px #0003}.section-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:24px}.section-heading h2{font-size:23px;letter-spacing:-.6px;margin:7px 0 0}.kicker{margin:0}.status-chip{font-size:11px;color:#d2b67d;border:1px solid #685639;background:#3c311d40;border-radius:30px;padding:9px 13px;white-space:nowrap}.status-chip.connected{color:var(--green);border-color:#2b7653;background:#173b2c70}.status-chip.connected .status-light{background:var(--green)}.wallet-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:12px}.wallet-card{background:#0b121f;border:1px solid #273345;border-radius:11px;padding:21px;min-width:0;display:flex;flex-direction:column;min-height:130px}.card-label{color:#9aa7ba;letter-spacing:1.5px;font-size:10px;font-weight:700}.wallet-address{font-size:15px;overflow-wrap:anywhere;margin-top:22px}.balance{font-size:29px;color:#f3d493;letter-spacing:-1px;margin-top:17px;font-weight:750}.card-hint{font-size:11px;color:#8591a4;margin-top:8px}.text-button{background:none;border:none;padding:0;color:var(--gold);text-align:left;margin-top:11px;font-size:11px;width:max-content}.wallet-footer{display:flex;align-items:center;justify-content:space-between;gap:15px;padding-top:19px;color:#9eabbc;font-size:12px;line-height:1.6}.wallet-footer-buttons{display:flex;gap:8px;flex-shrink:0}.ecosystem{padding:75px 0 45px}.section-aside{color:#697789;font-size:10px;letter-spacing:2px}.service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.service-card{border:1px solid #2d384b;background:linear-gradient(145deg,#192233,#101823);padding:22px;border-radius:13px;min-height:220px;display:flex;flex-direction:column}.service-top{display:flex;justify-content:space-between;align-items:center}.service-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:10px;background:#a17a3722;color:var(--gold);font-size:25px}.service-tag{font-size:8px;letter-spacing:.8px;border-radius:4px;padding:6px 7px;font-weight:800}.tag-live{color:#91e1b6;background:#20503980}.tag-soon{color:#d5b878;background:#52402770}.service-card h3{font-size:19px;margin:23px 0 7px}.service-card p{color:#9faab9;font-size:12px;line-height:1.65;margin:0 0 22px}.service-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:15px;border-top:1px solid #ffffff16;color:#8c99a9;font-size:11px}.service-link{color:var(--gold)}.service-link:hover{text-decoration:underline}.safety-note{display:flex;gap:18px;align-items:center;padding:20px 23px;border:1px solid #2d3848;background:#111925;border-radius:12px;margin:12px 0 55px}.safety-icon{color:var(--gold);font-size:31px}.safety-note strong{color:#e3c381;font-size:11px;letter-spacing:1.4px}.safety-note p{font-size:12px;line-height:1.7;color:#9ea9b9;margin:6px 0 0}.footer{display:flex;justify-content:space-between;gap:12px;padding:22px 0 35px;border-top:1px solid #ffffff14;color:#778596;font-size:10px;letter-spacing:.8px}.modal-backdrop{position:fixed;inset:0;background:#03060cce;z-index:10;display:flex;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(8px)}.modal{width:min(460px,100%);border:1px solid #786344;border-radius:17px;background:#111b2a;padding:25px;box-shadow:0 30px 80px #0009}.modal-head{display:flex;justify-content:space-between;align-items:start}.modal-head h2{margin:7px 0;font-size:23px}.modal-close{background:none;border:0;color:#d8d9de;font-size:29px;line-height:1}.modal-desc,.modal-foot{color:#9ca8b8;font-size:12px;line-height:1.7}.wallet-option{width:100%;background:#172335;border:1px solid #344155;border-radius:11px;color:#fff;display:flex;align-items:center;text-align:left;padding:14px;gap:13px;margin:11px 0}.wallet-option:hover{border-color:#c5a566}.wallet-option>span:nth-child(2){display:flex;flex-direction:column;gap:4px;flex:1}.wallet-option small{color:#8e9bab;font-size:10px}.wallet-mark{width:43px;height:43px;display:grid;place-items:center;border-radius:12px;font-weight:800}.fox{background:#9a4e20;color:#ffd6a5}.tp{background:#1a5e8a;color:#d8f4ff}.other{background:#524528;color:#f7d68e}.option-arrow{color:var(--gold)}.modal-foot{margin-bottom:0}
+@media(max-width:900px){.hero{grid-template-columns:1fr .65fr}.hero-art{transform:scale(.8);margin:-30px}.service-grid{grid-template-columns:repeat(2,1fr)}.wallet-grid{grid-template-columns:1fr 1fr}.wallet-card:first-child{grid-column:1/-1;min-height:110px}.wallet-address{margin-top:13px}}
+@media(max-width:650px){.site-shell{width:min(100% - 30px,560px)}.topbar{padding:17px 0}.brand-symbol{width:39px;height:39px;font-size:24px}.brand-type strong{font-size:14px;letter-spacing:2px}.brand-type small{font-size:7px;letter-spacing:1.7px}.network-pill{display:none}.header-actions .btn{font-size:10px;padding:10px 11px}.hero{grid-template-columns:1fr;padding:52px 0 33px;gap:0}.hero h1{font-size:clamp(32px,9vw,48px);letter-spacing:-1.3px}.hero-thai{font-size:14px}.hero-art{height:210px;transform:scale(.65);margin:-45px 0 -35px}.hero-notes{gap:10px;font-size:10px}.wallet-panel{padding:19px}.section-heading{align-items:flex-start;gap:12px}.section-heading h2{font-size:20px}.status-chip{font-size:9px;padding:8px}.wallet-grid{grid-template-columns:1fr 1fr;gap:9px}.wallet-card{padding:14px;min-height:105px}.wallet-card:first-child{grid-column:1/-1}.balance{font-size:21px}.card-label{font-size:9px}.card-hint{font-size:9px}.wallet-footer{flex-direction:column;align-items:flex-start}.wallet-footer-buttons{width:100%}.wallet-footer-buttons .btn{flex:1}.ecosystem{padding:55px 0 30px}.service-grid{gap:10px}.service-card{padding:15px;min-height:205px}.service-tag{font-size:7px}.service-card h3{font-size:17px}.service-card p{font-size:11px}.service-bottom{font-size:10px}.section-aside{display:none}.footer{flex-direction:column}.safety-note{margin-bottom:35px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+
+/* Isolated SIXTEEN CURRENCY V2 read-only dashboard styles */
+#legacyDashboard{margin:28px 0 54px;padding:28px;border:1px solid #54472e;border-radius:17px;background:linear-gradient(145deg,#151e2c,#0c131e);color:#f4f3ee}
+#legacyDashboard .legacy-intro{color:#aab5c4;font-size:12px;line-height:1.7;margin:0 0 22px}
+#legacyDashboard .legacy-content{display:grid;gap:18px}
+#legacyDashboard .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+#legacyDashboard .card{background:#0d2346;border:1px solid #3b6194;border-radius:18px;padding:20px}
+#legacyDashboard .symbol{font-weight:800;font-size:22px}
+#legacyDashboard .tag{display:inline-block;border:1px solid #d2a85c;border-radius:20px;padding:4px 9px;font-size:11px;margin-left:8px}
+#legacyDashboard .price{font-size:31px;font-weight:850;color:white;margin:17px 0 5px;overflow-wrap:anywhere}
+#legacyDashboard .label{font-size:13px;color:#a8c1e6}
+#legacyDashboard .details{margin-top:20px;padding-top:15px;border-top:1px solid #345176;display:grid;gap:10px}
+#legacyDashboard .item{display:flex;justify-content:space-between;gap:8px;font-size:13px}
+#legacyDashboard .item span:last-child{text-align:right;color:#fff}
+#legacyDashboard .status{margin-top:16px;font-size:13px;color:#b8d0f3;overflow-wrap:anywhere}
+#legacyDashboard .error{color:#ff9c9c}
+#legacyDashboard .ok{color:#8ee3bf}
+#legacyDashboard .btn{cursor:pointer;border:1px solid #d6ac62;background:linear-gradient(#f4d68c,#b78532);color:#102445;padding:12px 18px;border-radius:12px;font-weight:800}
+#legacyDashboard .btn:disabled{opacity:.6}
+#legacyDashboard .actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:22px}
+#legacyDashboard .muted{font-size:12px;color:#b7c7df;line-height:1.7}
+#legacyDashboard .link{color:#ffe09d;text-decoration:none}
+#legacyDashboard .pill{padding:5px 10px;border:1px solid #456b9b;border-radius:20px;font-size:12px;color:#c9dcf9}
+#legacyDashboard .wallet-head{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+#legacyDashboard .wallet-heading{font-size:22px;font-weight:800;color:#f8d57e}
+#legacyDashboard .wallet-address{font-size:13px;color:#d1e1f6;overflow-wrap:anywhere;margin:8px 0}
+#legacyDashboard .wallet-controls{display:flex;flex-wrap:wrap;gap:8px}
+#legacyDashboard .btn-outline{border:1px solid #7190b5;background:#173d6e;color:white;border-radius:10px;padding:10px 12px;cursor:pointer;font-weight:650}
+#legacyDashboard .btn-outline:disabled{opacity:.5}
+#legacyDashboard .balances{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+#legacyDashboard .bal{background:#0b1c39;border:1px solid #3b6194;border-radius:12px;padding:13px}
+#legacyDashboard .bal small{color:#b8cee9}
+#legacyDashboard .bal strong{display:block;color:white;font-size:20px;overflow-wrap:anywhere;margin-top:5px}
+#legacyDashboard .wallet-message{font-size:13px;color:#b9d3f4;margin-top:12px;overflow-wrap:anywhere}
+#legacyDashboard .stake-box{margin-top:20px;border:1px solid #466f9e;border-radius:15px;padding:16px;background:#0b2042}
+#legacyDashboard .stake-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+#legacyDashboard .stake-stat{padding:12px;border:1px solid #365b8b;border-radius:10px}
+#legacyDashboard .stake-stat small{color:#abc5e7;display:block}
+#legacyDashboard .stake-stat strong{color:white;display:block;font-size:18px;margin-top:5px}
+#legacyDashboard .stake-list{display:grid;gap:10px;margin-top:12px}
+#legacyDashboard .stake-row{border:1px solid #315784;border-radius:10px;padding:12px;color:#e9f2ff;font-size:13px;line-height:1.8}
+#legacyDashboard .stake-row b{color:#f8d57e}
+#legacyDashboard .wallet-links{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+#legacyDashboard .wallet-links a{border:1px solid #c69d52;border-radius:10px;padding:10px 13px;color:#f8d57e;text-decoration:none;font-size:13px}
+#legacyDashboard .notice{font-size:12px;color:#b7cbe6;line-height:1.65;margin-top:13px}
+
+#legacyDashboard .bal,#legacyDashboard .card{background:#0c1421;border-color:#344052}
+#legacyDashboard .stake-box{background:#101a28;border-color:#3c4656}
+#legacyDashboard .stake-stat,#legacyDashboard .stake-row{border-color:#364459}
+#legacyDashboard .bal strong,#legacyDashboard .price,#legacyDashboard .stake-stat strong{color:#f4d592}
+#legacyDashboard .wallet-heading,#legacyDashboard .symbol,#legacyDashboard .stake-row b{color:#e5c37a}
+#legacyDashboard .btn{background:linear-gradient(115deg,#f2d491,#c69b4d);color:#161511;border-color:#c69b4d}
+#legacyDashboard .section{margin:20px 0 14px;color:#e5c37a;font-size:20px}
+#legacyDashboard .wallet-message,#legacyDashboard .notice,#legacyDashboard .muted{line-height:1.7}
+#legacyDashboard .wallet-links a{color:#e5c37a;border-color:#856c43}
+#legacyDashboard .price{overflow-wrap:anywhere}
+@media(max-width:650px){#legacyDashboard{padding:17px}#legacyDashboard .balances,#legacyDashboard .stake-stats,#legacyDashboard .cards{grid-template-columns:1fr 1fr}#legacyDashboard .price{font-size:23px}#legacyDashboard .bal strong{font-size:17px}}
+@media(max-width:380px){#legacyDashboard .balances,#legacyDashboard .stake-stats,#legacyDashboard .cards{grid-template-columns:1fr}}
+
+  </style>
+
+
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div><div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="SIXTEEN CURRENCY home">
+        <span class="brand-symbol">S<span class="spark">✦</span></span>
+        <span class="brand-type"><strong>SIXTEEN</strong><small>CURRENCY PLATFORM</small></span>
+      </a>
+      <div class="header-actions">
+        <span class="network-pill"><span class="dot"></span> BNB Smart Chain</span>
+        <button class="btn btn-outline btn-small" id="connectTop" type="button">Connect Wallet</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> THE SIXTEEN ECOSYSTEM <span class="version">V2.0 Preview</span></div>
+          <h1 id="hero-title">ONE PLATFORM.<br><span>LIMITLESS POTENTIAL.</span></h1>
+          <p class="hero-thai">ศูนย์กลางเชื่อมต่อกระเป๋า Web3 และเข้าถึงบริการในเครือ SIXTEEN CURRENCY ผ่านแพลตฟอร์มเดียว</p>
+          <div class="hero-buttons">
+            <button class="btn btn-gold" id="connectHero" type="button"><span aria-hidden="true">◈</span> Connect Your Wallet <span aria-hidden="true">↗</span></button>
+            <a class="btn btn-ghost" href="#ecosystem">Explore Ecosystem <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-notes"><span>✓ MetaMask &amp; TokenPocket</span><span>✓ BNB Chain Mainnet</span><span>✓ No account required</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true"><div class="orbit orbit-outer"></div><div class="orbit orbit-inner"></div><div class="hero-disc"><span>S</span><span class="disc-star">✦</span></div><div class="orbit-caption">SIXTEEN • CURRENCY •</div></div>
+      </section>
+
+      <section class="wallet-panel" aria-labelledby="wallet-title">
+        <div class="section-heading"><div><p class="kicker">YOUR GATEWAY</p><h2 id="wallet-title">Wallet Overview</h2></div><span id="connectionStatus" class="status-chip" role="status" aria-live="polite"><span class="status-light"></span> Not connected</span></div>
+        <div class="wallet-grid">
+          <div class="wallet-card"><span class="card-label">CONNECTED ADDRESS</span><strong id="walletAddress" class="wallet-address">Connect wallet to begin</strong><button id="copyAddress" class="text-button" type="button" disabled>Copy address ↗</button></div>
+          <div class="wallet-card"><span class="card-label">BNB BALANCE</span><strong class="balance" id="bnbBalance">—</strong><span class="card-hint">BNB Smart Chain (BEP-20)</span></div>
+          <div class="wallet-card"><span class="card-label">STC BALANCE</span><strong class="balance" id="stcBalance">—</strong><span class="card-hint">SIXTEEN Token · BEP-20</span></div>
+        </div>
+        <div class="wallet-footer"><span id="walletMessage" role="status" aria-live="polite">เชื่อม MetaMask หรือ TokenPocket เพื่อดูยอดสินทรัพย์ของคุณ</span><div class="wallet-footer-buttons"><button class="btn btn-outline btn-small" id="switchNetwork" type="button" hidden>Switch to BNB Chain</button><button class="btn btn-outline btn-small" id="refreshBalances" type="button" disabled>↻ Refresh</button></div></div>
+      </section>
+
+
+      <!-- Isolated read-only dashboards ported from Sixteen Super Wallet. Wallet connects ONLY in V1 gateway. -->
+      <section id="legacyDashboard" class="legacy-dashboard" aria-labelledby="legacyTitle">
+        <div class="section-heading"><div><p class="kicker">SIXTEEN SUPER WALLET</p><h2 id="legacyTitle">Assets &amp; Staking Dashboard</h2></div><span class="section-aside">READ-ONLY · BSC MAINNET</span></div>
+        <p class="legacy-intro">ใช้ Wallet ที่เชื่อมต่อด้านบนเพื่ออ่านยอดสินทรัพย์, Staking และ Reward จาก Smart Contract เดิมโดยตรง ไม่ต้องเชื่อม Wallet ซ้ำ</p>
+        <div class="wallet-message" id="wallet-message" role="status" aria-live="polite">เชื่อม Wallet ด้านบนเพื่อดู Dashboard</div>
+        <div class="legacy-content">
+<div class="balances">
+  <div class="bal"><small>NC</small><strong id="bal-nc">—</strong></div><div class="bal"><small>THBC</small><strong id="bal-thbc">—</strong></div>
+  <div class="bal"><small>STC</small><strong id="bal-stc">—</strong></div><div class="bal"><small>USDT</small><strong id="bal-usdt">—</strong></div>
+ </div>
+ <div class="stake-box">
+  <div class="wallet-heading" style="font-size:19px">NC Staking Dashboard</div>
+  <div class="notice">อ่านจาก NC Staking V5 เดิมโดยตรง · ไม่โอนเหรียญ ไม่อนุมัติ และไม่สร้าง Stake ใหม่</div>
+  <div class="stake-stats"><div class="stake-stat"><small>รายการ Stake ทั้งหมด</small><strong id="stake-count">—</strong></div><div class="stake-stat"><small>รางวัลค้างรับรวม (NC)</small><strong id="stake-reward">—</strong></div></div>
+  <div id="stake-status" class="wallet-message">เชื่อมกระเป๋าเพื่อดูข้อมูล Staking</div><div id="stake-list" class="stake-list"></div>
+  <div class="stake-box"><div class="wallet-heading" style="font-size:19px">NC Whale Staking V12</div><div class="stake-stats"><div class="stake-stat"><small>จำนวนรายการ Whale Stake</small><strong id="whale-count">—</strong></div><div class="stake-stat"><small>NC ที่เคลมแล้ว</small><strong id="whale-claimed">—</strong></div></div><div class="wallet-message" id="whale-status">เชื่อม Wallet เพื่อดู Whale Stake</div><div id="whale-list" class="stake-list"></div></div><div class="stake-box" id="reward-dashboard">
+<div class="wallet-heading" style="font-size:19px">NC Reward Dashboard</div>
+<div class="notice">อ่านข้อมูลจาก NC Reward Core และ Reward Staking V1 · ไม่ทำธุรกรรม</div>
+<div class="stake-stats">
+<div class="stake-stat"><small>Rank</small><strong id="reward-rank">—</strong></div>
+<div class="stake-stat"><small>Organization Volume (NC)</small><strong id="reward-org">—</strong></div>
+<div class="stake-stat"><small>Claimable Reward (NC)</small><strong id="reward-claimable">—</strong></div>
+<div class="stake-stat"><small>Reward Auto Staked (NC)</small><strong id="reward-staked">—</strong></div>
+</div><div class="wallet-message" id="reward-core-status">เชื่อมกระเป๋าเพื่อดู Reward</div>
+<div class="stake-stats">
+<div class="stake-stat"><small>Reward Stake Lots</small><strong id="reward-lots">—</strong></div>
+<div class="stake-stat"><small>Active Principal (NC)</small><strong id="reward-active">—</strong></div>
+<div class="stake-stat"><small>Matured Principal (NC)</small><strong id="reward-matured">—</strong></div>
+<div class="stake-stat"><small>Withdrawable (NC)</small><strong id="reward-withdrawable">—</strong></div>
+</div><div class="wallet-message" id="reward-staking-status">เชื่อมกระเป๋าเพื่อดู Reward Staking</div>
+<div class="stake-list" id="reward-lot-list"></div>
+<div class="stake-box" id="reward-previous" hidden><div class="wallet-heading" style="font-size:16px">Reward Core เวอร์ชันก่อนหน้า (แยกยอด)</div>
+<div class="stake-stats"><div class="stake-stat"><small>Organization Volume (NC)</small><strong id="reward-old-org">—</strong></div>
+<div class="stake-stat"><small>Claimable (NC)</small><strong id="reward-old-claimable">—</strong></div></div></div>
+<div class="wallet-links"><a href="https://sixteeninter-ux.github.io/NCReward/" target="_blank" rel="noopener">เปิด NC Reward ↗</a></div></div><div class="stake-box" id="thbc-whale-reward-dashboard">
+<div class="wallet-heading" style="font-size:19px">THBC Whale Reward — 500 Days</div>
+<div class="notice">อ่านรางวัล THBC จากสัญญา Whale Reward Staking บน BNB Chain · นับ 500 วันจากวันที่ Owner บันทึก Reward · ไม่ต้อง Approve เพื่อดูข้อมูล</div>
+<div class="stake-stats">
+<div class="stake-stat"><small>รายการ THBC Reward Stake</small><strong id="thbc-reward-count">—</strong></div>
+<div class="stake-stat"><small>THBC กำลัง Stake</small><strong id="thbc-reward-active">—</strong></div>
+<div class="stake-stat"><small>THBC ครบกำหนดรอถอน</small><strong id="thbc-reward-matured">—</strong></div>
+<div class="stake-stat"><small>THBC ถอนแล้ว</small><strong id="thbc-reward-withdrawn">—</strong></div>
+</div>
+<div class="wallet-message" id="thbc-reward-status">เชื่อม Wallet เพื่อดู THBC Whale Reward</div>
+<div class="stake-list" id="thbc-reward-list"></div>
+<div class="wallet-links"><a href="https://sixteeninter-ux.github.io/SixteenSuperWallet/thbc-reward/member.html" target="_blank" rel="noopener">เปิด THBC Whale Reward / Withdraw ↗</a></div>
+</div><div class="wallet-links"><a href="https://sixteeninter-ux.github.io/NCTrading/" target="_blank" rel="noopener">เปิด NC Trading ↗</a><a href="https://sixteeninter-ux.github.io/NC-Whale/" target="_blank" rel="noopener">เปิด NC Whale ↗</a></div>
+        </div>
+        <div class="legacy-prices"><h2 class="section">อัตราแลกเปลี่ยน NC และ THBC</h2><div class="cards">
+<section class="card"><div><span class="symbol">NC / USDT</span><span class="tag">V2</span></div><div class="label" style="margin-top:16px">1 USDT เท่ากับ</div><div class="price" id="nc-inverse">กำลังโหลด...</div><div class="status" id="nc-status">กำลังเชื่อมต่อ...</div></section>
+<section class="card"><div><span class="symbol">THBC / USDT</span><span class="tag">V2</span></div><div class="label" style="margin-top:16px">1 USDT เท่ากับ</div><div class="price" id="thbc-inverse">กำลังโหลด...</div><div class="status" id="thbc-status">กำลังเชื่อมต่อ...</div></section>
+</div><div class="actions"><button class="btn" id="refresh">↻ อัปเดตราคา</button><span class="pill" id="updated">ยังไม่มีข้อมูล</span></div>
+<p class="muted">อัตราแลกเปลี่ยนนี้คำนวณจากสภาพคล่อง PancakeSwap V2 ณ เวลาที่อ่าน ไม่ใช่ราคาคงที่หรือราคาที่รับประกันว่าจะซื้อขายได้จริง ค่าธรรมเนียมและ slippage อาจทำให้ราคาซื้อขายแตกต่าง โดยเฉพาะ Pool ที่มีสภาพคล่องน้อย ข้อมูลรีเฟรชทุก 30 วินาที</p>
+
+</div>
+      </section>
+      <section class="ecosystem" id="ecosystem" aria-labelledby="eco-title">
+        <div class="section-heading"><div><p class="kicker">DISCOVER THE NETWORK</p><h2 id="eco-title">Explore Our Ecosystem</h2></div><span class="section-aside">CONNECTED BY SIXTEEN</span></div>
+        <div class="service-grid">
+          <article class="service-card"><div class="service-top"><span class="service-icon">◈</span><span class="service-tag tag-soon">COMING SOON</span></div><h3>STC</h3><p>Sixteen Token · Main Currency</p><span class="service-bottom">Wallet balance available <span>◇</span></span></article>
+          <article class="service-card"><div class="service-top"><span class="service-icon">↗</span><span class="service-tag tag-live">EXISTING DAPP</span></div><h3>NC Trading</h3><p>Access the existing NC Trading platform.</p><a class="service-bottom service-link" href="https://sixteeninter-ux.github.io/NCTrading/" target="_blank" rel="noopener noreferrer">Open existing DApp <span>↗</span></a></article>
+          <article class="service-card"><div class="service-top"><span class="service-icon">✧</span><span class="service-tag tag-live">EXISTING DAPP</span></div><h3>THBC Reward</h3><p>View THBC reward and staking records.</p><a class="service-bottom service-link" href="https://sixteeninter-ux.github.io/SixteenSuperWallet/thbc-reward/member.html" target="_blank" rel="noopener noreferrer">Open member DApp <span>↗</span></a></article>
+          <article class="service-card"><div class="service-top"><span class="service-icon">♜</span><span class="service-tag tag-soon">COMING SOON</span></div><h3>Whale</h3><p>Whale package gateway and information.</p><span class="service-bottom">Integration planned <span>◇</span></span></article>
+        </div>
+      </section>
+
+      <section class="safety-note"><span class="safety-icon">◇</span><div><strong>SECURE BY DESIGN</strong><p>เว็บไซต์นี้อ่านข้อมูลกระเป๋าเท่านั้น ไม่ขอ Seed Phrase, Private Key, การเซ็นข้อความ หรือการอนุมัติโอนเหรียญ</p></div></section>
+    </main>
+    <footer class="footer"><span>© <span id="year"></span> SIXTEEN CURRENCY</span><span>Built for BNB Smart Chain · Wallet Fix V1.3</span></footer>
+  </div>
+
+  <div id="walletModal" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head"><div><p class="kicker">CONNECT SECURELY</p><h2 id="modalTitle">Choose Your Wallet</h2></div><button id="closeModal" class="modal-close" type="button" aria-label="Close">×</button></div>
+      <p class="modal-desc">เลือก Wallet ที่ติดตั้งอยู่บนอุปกรณ์ของคุณ · <strong id="walletVersion">Wallet Fix V1.3</strong></p>
+      <button id="chooseMetaMask" class="wallet-option" type="button"><span class="wallet-mark fox">M</span><span><strong>MetaMask</strong><small>Browser extension / in-app browser</small></span><span class="option-arrow">↗</span></button>
+      <button id="chooseTokenPocket" class="wallet-option" type="button"><span class="wallet-mark tp">TP</span><span><strong>TokenPocket</strong><small>TP Wallet in-app browser</small></span><span class="option-arrow">↗</span></button>
+      <button id="chooseInjected" class="wallet-option" type="button"><span class="wallet-mark other">◈</span><span><strong>Other Web3 Wallet</strong><small>Detected injected wallet</small></span><span class="option-arrow">↗</span></button>
+      <p id="walletDetection" class="modal-foot" aria-live="polite">กำลังตรวจสอบกระเป๋า…</p><p class="modal-foot">หากไม่พบ MetaMask บนคอมพิวเตอร์ โปรดติดตั้งและเปิดใช้งานส่วนขยาย MetaMask ก่อน ส่วนบนมือถือให้เปิดเว็บในแอป Wallet</p>
+    </div>
+  </div>
+<script>
+// SIXTEEN CURRENCY V1 — read-only wallet gateway settings.
+// No private keys, database passwords, or wallet secrets belong in this file.
+window.SIXTEEN_CONFIG = Object.freeze({
+  chainId: '0x38',
+  chainName: 'BNB Smart Chain Mainnet',
+  rpcUrls: ['https://bsc-dataseed.bnbchain.org/'],
+  blockExplorerUrls: ['https://bscscan.com/'],
+  nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 },
+  stcToken: '0x12730990De18c6864e45d22f007EBebaFbf6c76b',
+  stcFallbackDecimals: 18
+});
+
+(() => {
+  'use strict';
+  const cfg = window.SIXTEEN_CONFIG;
+  const $ = id => document.getElementById(id);
+  const state = { provider: null, address: null, providerHandlers: null, modalReturnFocus: null };
+  const announced = new Map();
+  const short = s => s ? `${s.slice(0, 7)}…${s.slice(-5)}` : '—';
+  const setText = (id, value) => { $(id).textContent = value; };
+  const message = (text) => setText('walletMessage', text);
+  const hexAddress = addr => /^0x[0-9a-fA-F]{40}$/.test(addr);
+
+  // EIP-6963 wallet identity is preferred over compatibility flags.
+  // Bitget Wallet can advertise isMetaMask for dApp compatibility: never treat
+  // that flag alone as proof that the provider belongs to MetaMask.
+  function isBitget(p, name = '', rdns = '') {
+    return !!(p?.isBitKeep || p?.isBitget || p?.isBitgetWallet || p?.isBitKeepWallet) ||
+      /bitget|bitkeep/i.test(name + ' ' + rdns);
+  }
+  function isTokenPocket(p, name = '', rdns = '') {
+    return !!(p?.isTokenPocket || p?.isTP) || /tokenpocket|tp wallet/i.test(name + ' ' + rdns);
+  }
+  function isMetaMask(p, name = '', rdns = '') {
+    if (isBitget(p, name, rdns) || isTokenPocket(p, name, rdns)) return false;
+    if (/^io\.metamask(?:\.flask)?$/i.test(rdns)) return true;
+    if (/metamask/i.test(name)) return true;
+    return !!p?.isMetaMask;
+  }
+  function discover() {
+    const found = [];
+    const push = (provider, name, rdns = '') => {
+      if (provider && typeof provider.request === 'function' && !found.some(x => x.provider === provider)) {
+        found.push({ provider, name, rdns });
+      }
+    };
+    // Announced providers identify themselves by wallet name and reverse DNS.
+    for (const item of announced.values()) {
+      push(item.provider, item.info?.name || 'Web3 Wallet', item.info?.rdns || '');
+    }
+    // Add wallet-specific providers before generic window.ethereum.
+    push(window.tokenpocket?.ethereum, 'TokenPocket');
+    push(window.tp?.ethereum, 'TokenPocket');
+    push(window.bitkeep?.ethereum, 'Bitget Wallet', 'com.bitget.wallet');
+    push(window.bitget?.ethereum, 'Bitget Wallet', 'com.bitget.wallet');
+    const eth = window.ethereum;
+    if (Array.isArray(eth?.providers)) {
+      eth.providers.forEach(p => push(p,
+        isBitget(p) ? 'Bitget Wallet' : isTokenPocket(p) ? 'TokenPocket' : p.isMetaMask ? 'MetaMask' : 'Web3 Wallet'));
+    }
+    push(eth, isBitget(eth) ? 'Bitget Wallet' : isTokenPocket(eth) ? 'TokenPocket' : eth?.isMetaMask ? 'MetaMask' : 'Web3 Wallet');
+    return found;
+  }
+
+  function selectProvider(kind) {
+    const providers = discover();
+    if (kind === 'metamask') {
+      // STRICT: Never infer MetaMask identity from isMetaMask or a generic
+      // window.ethereum when multiple extensions are installed.
+      // Bitget and other wallets may expose isMetaMask for compatibility.
+      const official = providers.find(x => /^io\.metamask(?:\.flask)?$/i.test(x.rdns) &&
+        !isBitget(x.provider, x.name, x.rdns));
+      if (official) return official.provider;
+      // Legacy exception for MetaMask's own in-app browser only.
+      const mobileMetaMask = /MetaMaskMobile/i.test(navigator.userAgent);
+      if (mobileMetaMask && window.ethereum?.isMetaMask &&
+          !isBitget(window.ethereum) && !isTokenPocket(window.ethereum)) {
+        return window.ethereum;
+      }
+      return null;
+    }
+    if (kind === 'tokenpocket') {
+      return providers.find(x => isTokenPocket(x.provider, x.name, x.rdns))?.provider || null;
+    }
+    return (providers.find(x => isBitget(x.provider, x.name, x.rdns)) ||
+      providers.find(x => !isMetaMask(x.provider, x.name, x.rdns) &&
+        !isTokenPocket(x.provider, x.name, x.rdns)) || providers[0])?.provider || null;
+  }
+
+  function showDetectedWallets() {
+    const providers = discover();
+    const labels = providers.map(x => {
+      const kind = isBitget(x.provider, x.name, x.rdns) ? 'Bitget' :
+        isTokenPocket(x.provider, x.name, x.rdns) ? 'TokenPocket' :
+        /^io\.metamask(?:\.flask)?$/i.test(x.rdns) ? 'MetaMask' :
+        x.rdns ? x.name : 'Unknown injected wallet';
+      return kind + (x.rdns ? ' [' + x.rdns.slice(0, 55) + ']' : '');
+    });
+    $('walletDetection').textContent = 'ตรวจพบ: ' +
+      (labels.length ? labels.join(' · ') : 'ไม่พบ Wallet Extension') +
+      ' | Wallet Fix V1.3';
+  }
+
+  function openModal() {
+    state.modalReturnFocus = document.activeElement;
+    $('walletModal').hidden = false;
+    $('closeModal').focus();
+    window.dispatchEvent(new Event('eip6963:requestProvider'));
+    showDetectedWallets();
+    setTimeout(showDetectedWallets, 350);
+  }
+  function closeModal() {
+    $('walletModal').hidden = true;
+    state.modalReturnFocus?.focus?.();
+  }
+  function setConnected(connected) {
+    $('connectionStatus').classList.toggle('connected', connected);
+    $('connectionStatus').innerHTML = connected ? '<span class="status-light"></span> Connected' : '<span class="status-light"></span> Not connected';
+    $('refreshBalances').disabled = !connected;
+    $('copyAddress').disabled = !connected;
+    setText('connectTop', connected ? 'Change Wallet' : 'Connect Wallet');
+    setText('connectHero', connected ? '◈  Change Wallet  ↗' : '◈  Connect Your Wallet  ↗');
+  }
+  function resetWallet(note = 'กรุณาเชื่อม Wallet เพื่อดูข้อมูล') {
+    state.address = null;
+    window.dispatchEvent(new CustomEvent('sixteen:wallet',{detail:{address:null}}));
+    setConnected(false);
+    setText('walletAddress', 'Connect wallet to begin');
+    setText('bnbBalance', '—');
+    setText('stcBalance', '—');
+    $('switchNetwork').hidden = true;
+    message(note);
+  }
+  function detachEvents() {
+    if (!state.provider || !state.providerHandlers) return;
+    const { accounts, chain } = state.providerHandlers;
+    state.provider.removeListener?.('accountsChanged', accounts);
+    state.provider.removeListener?.('chainChanged', chain);
+    state.providerHandlers = null;
+  }
+  function attachEvents(provider) {
+    detachEvents();
+    const accounts = (a) => {
+      if (!Array.isArray(a) || !a.length) { resetWallet('Wallet ถูกตัดการเชื่อมต่อ'); return; }
+      if (!hexAddress(a[0])) { resetWallet('ที่อยู่ Wallet ไม่ถูกต้อง'); return; }
+      state.address = a[0];
+      setText('walletAddress', short(a[0]));
+      refresh().catch(e => message(errorMessage(e)));
+    };
+    const chain = () => refresh().catch(e => message(errorMessage(e)));
+    provider.on?.('accountsChanged', accounts);
+    provider.on?.('chainChanged', chain);
+    state.providerHandlers = { accounts, chain };
+  }
+  function errorMessage(e) {
+    if (e?.code === 4001) return 'คุณยกเลิกคำขอใน Wallet';
+    if (e?.code === -32002) return 'มีคำขอค้างอยู่ กรุณาเปิด Wallet เพื่อยืนยัน';
+    return e?.shortMessage || e?.message || 'ไม่สามารถอ่านข้อมูล Wallet ได้';
+  }
+  async function request(method, params = []) {
+    if (!state.provider) throw new Error('ยังไม่ได้เลือก Wallet');
+    return state.provider.request({ method, params });
+  }
+  async function ensureChain() {
+    const chain = await request('eth_chainId');
+    if (String(chain).toLowerCase() === cfg.chainId) return true;
+    try {
+      await request('wallet_switchEthereumChain', [{ chainId: cfg.chainId }]);
+    } catch (e) {
+      if (e?.code !== 4902) throw e;
+      await request('wallet_addEthereumChain', [{
+        chainId: cfg.chainId,
+        chainName: cfg.chainName,
+        nativeCurrency: cfg.nativeCurrency,
+        rpcUrls: cfg.rpcUrls,
+        blockExplorerUrls: cfg.blockExplorerUrls
+      }]);
+      await request('wallet_switchEthereumChain', [{ chainId: cfg.chainId }]);
+    }
+    return String(await request('eth_chainId')).toLowerCase() === cfg.chainId;
+  }
+  async function connect(kind) {
+    // Give EIP-6963 providers time to announce themselves on each click.
+    window.dispatchEvent(new Event('eip6963:requestProvider'));
+    await new Promise(resolve => setTimeout(resolve, 350));
+    showDetectedWallets();
+    const provider = selectProvider(kind);
+    if (!provider) {
+      message(kind === 'tokenpocket' ? 'ไม่พบ TokenPocket: โปรดเปิดเว็บผ่าน DApp Browser ของ TokenPocket' : kind === 'metamask' ? 'ไม่พบ MetaMask ที่ยืนยันตัวตนได้: โปรดตรวจสอบ Chrome Extensions ว่าติดตั้งและเปิด MetaMask อยู่' : 'ไม่พบ Web3 Wallet: โปรดเปิดผ่าน MetaMask หรือ TokenPocket');
+      $('walletDetection').textContent += ' | ไม่สามารถเชื่อมต่อกระเป๋าที่เลือกได้';
+      return;
+    }
+    closeModal();
+    state.provider = provider;
+    message('กำลังขออนุญาตเชื่อมต่อ Wallet…');
+    try {
+      const accounts = await request('eth_requestAccounts');
+      if (!Array.isArray(accounts) || !hexAddress(accounts[0])) throw new Error('Wallet ไม่ส่งที่อยู่กระเป๋าที่ถูกต้อง');
+      state.address = accounts[0];
+      attachEvents(provider);
+      setText('walletAddress', short(state.address));
+      setConnected(true);
+      try {
+        const switched = await ensureChain();
+        if (!switched) throw new Error('กรุณาเปลี่ยนเครือข่ายเป็น BNB Smart Chain');
+      } catch (e) {
+        $('switchNetwork').hidden = false;
+        setText('bnbBalance', '—'); setText('stcBalance', '—');
+        message('เชื่อม Wallet แล้ว แต่ยังไม่ได้เปลี่ยนเป็น BNB Smart Chain: ' + errorMessage(e));
+        return;
+      }
+      await refresh();
+    } catch (e) {
+      if (!state.address) resetWallet(errorMessage(e));
+      else message(errorMessage(e));
+    }
+  }
+  function formatUnits(value, decimals, maxFraction = 5) {
+    const n = BigInt(value);
+    const base = 10n ** BigInt(decimals);
+    const whole = n / base;
+    const fraction = (n % base).toString().padStart(decimals, '0').slice(0, maxFraction).replace(/0+$/, '');
+    return whole.toLocaleString('en-US') + (fraction ? '.' + fraction : '');
+  }
+  async function readSTC(address) {
+    const data = '0x70a08231' + address.slice(2).toLowerCase().padStart(64, '0');
+    const raw = await request('eth_call', [{ to: cfg.stcToken, data }, 'latest']);
+    const rawDecimals = await request('eth_call', [{ to: cfg.stcToken, data: '0x313ce567' }, 'latest']).catch(() => null);
+    const decimals = rawDecimals && rawDecimals !== '0x' ? Number(BigInt(rawDecimals)) : cfg.stcFallbackDecimals;
+    if (!Number.isInteger(decimals) || decimals < 0 || decimals > 36) throw new Error('STC decimals ไม่ถูกต้อง');
+    return formatUnits(raw, decimals, 4);
+  }
+  async function refresh() {
+    if (!state.provider || !state.address) return;
+    const chain = String(await request('eth_chainId')).toLowerCase();
+    if (chain !== cfg.chainId) {
+      $('switchNetwork').hidden = false;
+      setText('bnbBalance', '—'); setText('stcBalance', '—');
+      window.dispatchEvent(new CustomEvent('sixteen:wallet',{detail:{address:null}}));
+      message('กรุณาเปลี่ยนเครือข่ายเป็น BNB Smart Chain Mainnet');
+      return;
+    }
+    $('switchNetwork').hidden = true;
+    setConnected(true);
+    window.dispatchEvent(new CustomEvent('sixteen:wallet',{detail:{address:state.address}}));
+    setText('walletAddress', short(state.address));
+    setText('bnbBalance', 'Loading…'); setText('stcBalance', 'Loading…');
+    const address = state.address;
+    const [bnb, stc] = await Promise.allSettled([
+      request('eth_getBalance', [address, 'latest']),
+      readSTC(address)
+    ]);
+    if (address !== state.address) return;
+    setText('bnbBalance', bnb.status === 'fulfilled' ? formatUnits(bnb.value, 18, 5) : 'Unavailable');
+    setText('stcBalance', stc.status === 'fulfilled' ? stc.value : 'Unavailable');
+    message(bnb.status === 'fulfilled' && stc.status === 'fulfilled' ? 'อ่านข้อมูลสำเร็จ · BNB Smart Chain Mainnet' : 'เชื่อมต่อแล้ว แต่มีบางยอดอ่านไม่สำเร็จ กรุณาลอง Refresh');
+  }
+
+  window.addEventListener('eip6963:announceProvider', event => {
+    if (event.detail?.provider && event.detail?.info?.uuid) announced.set(event.detail.info.uuid, event.detail);
+  });
+  window.dispatchEvent(new Event('eip6963:requestProvider'));
+  $('year').textContent = String(new Date().getFullYear());
+  $('connectTop').addEventListener('click', openModal);
+  $('connectHero').addEventListener('click', openModal);
+  $('closeModal').addEventListener('click', closeModal);
+  $('walletModal').addEventListener('click', e => { if (e.target === $('walletModal')) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('walletModal').hidden) closeModal(); });
+  $('chooseMetaMask').addEventListener('click', () => connect('metamask'));
+  $('chooseTokenPocket').addEventListener('click', () => connect('tokenpocket'));
+  $('chooseInjected').addEventListener('click', () => connect('other'));
+  $('switchNetwork').addEventListener('click', async () => {
+    try { await ensureChain(); await refresh(); } catch (e) { message('เปลี่ยนเครือข่ายไม่สำเร็จ: ' + errorMessage(e)); }
+  });
+  $('refreshBalances').addEventListener('click', () => refresh().catch(e => message(errorMessage(e))));
+  $('copyAddress').addEventListener('click', async () => {
+    if (!state.address) return;
+    try { await navigator.clipboard.writeText(state.address); message('คัดลอกที่อยู่ Wallet แล้ว'); }
+    catch { message('ไม่สามารถคัดลอกอัตโนมัติได้: ' + state.address); }
+  });
+})();
+
+</script>
+
+<script>
+/* SIXTEEN CURRENCY V2: read-only dashboard ported from original Sixteen Super Wallet.
+   Does not request accounts or register a second wallet connection. */
+
+'use strict';
+// ไม่ต้องโหลด ethers.js จาก CDN; อ่าน eth_call โดยตรง จึงทำงานได้แม้ CDN ถูกบล็อก
+const USDT='0x55d398326f99059ff775485246999027b3197955';
+const FACTORY='0xca143ce32fe78f1f7019d7d551a6402fc5350c73';
+const CONFIG={
+ nc:{token:'0xa0db9b043ea0387ba0f7480189f0392edaa72108'},
+ thbc:{token:'0xe8d4687b77b5611ef1828fda7428034fa12a1beb'}
+};
+const RPCS=['https://bsc-rpc.publicnode.com','https://bsc-dataseed.binance.org','https://1rpc.io/bnb'];
+const $=id=>document.getElementById(id),eq=(a,b)=>a.toLowerCase()===b.toLowerCase();
+const fmt=(n,d=4)=>n.toLocaleString('en-US',{maximumFractionDigits:d});
+const address=x=>'0x'+x.slice(-40);
+const arg=x=>x.slice(2).toLowerCase().padStart(64,'0');
+let running=false;
+async function rpc(url,to,data){
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);
+ try{
+  const response=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to,data},'latest']}),signal:controller.signal,cache:'no-store'});
+  if(!response.ok)throw Error('HTTP '+response.status);
+  const json=await response.json();
+  if(json.error)throw Error(json.error.message||'RPC error');
+  if(!json.result||json.result==='0x')throw Error('ไม่มีข้อมูลจาก Contract');
+  return json.result;
+ }finally{clearTimeout(timer);}
+}
+async function loadPool(key,url){
+ const cfg=CONFIG[key];
+ // ดึง Pair Address จาก Factory โดยตรง ไม่อาศัยการพิมพ์จากภาพหน้าจอ
+ const pairHex=await rpc(url,FACTORY,'0xe6a43905'+arg(USDT)+arg(cfg.token));
+ const pair=address(pairHex);
+ if(/^0x0{40}$/i.test(pair))throw Error('ยังไม่พบ PancakeSwap V2 Pair');
+ const [t0hex,t1hex,resHex,usdDhex,tokDhex]=await Promise.all([
+  rpc(url,pair,'0x0dfe1681'),rpc(url,pair,'0xd21220a7'),rpc(url,pair,'0x0902f1ac'),
+  rpc(url,USDT,'0x313ce567'),rpc(url,cfg.token,'0x313ce567')
+ ]);
+ const t0=address(t0hex),t1=address(t1hex);
+ if(!((eq(t0,USDT)&&eq(t1,cfg.token))||(eq(t1,USDT)&&eq(t0,cfg.token))))throw Error('Pair มี Token ไม่ตรง');
+ const reserve0=BigInt('0x'+resHex.slice(2,66)),reserve1=BigInt('0x'+resHex.slice(66,130));
+ const usdD=Number(BigInt(usdDhex)),tokD=Number(BigInt(tokDhex));
+ if(usdD>36||tokD>36)throw Error('Decimals ไม่ถูกต้อง');
+ const usd=Number(eq(t0,USDT)?reserve0:reserve1)/10**usdD;
+ const token=Number(eq(t0,cfg.token)?reserve0:reserve1)/10**tokD;
+ if(!Number.isFinite(usd)||!Number.isFinite(token)||usd<=0||token<=0)throw Error('Pool ไม่มีสภาพคล่อง');
+ return {usd,token,price:usd/token,pair};
+}
+async function update(){
+ if(running)return;running=true;$('refresh').disabled=true;
+ const keys=Object.keys(CONFIG),results=[];
+ await Promise.all(keys.map(async key=>{
+  $(key+'-status').textContent='กำลังอ่าน Pool...';$(key+'-status').className='status';
+  let data,error;
+  for(const url of RPCS){try{data=await loadPool(key,url);break;}catch(e){error=e;}}
+  if(data){
+   $(key+'-inverse').textContent=fmt(data.token/data.usd,6)+' '+key.toUpperCase();
+   $(key+'-status').textContent='● อ่านข้อมูลสำเร็จ · Pair '+data.pair.slice(0,8)+'…'+data.pair.slice(-6);
+   $(key+'-status').className='status ok';results.push(true);
+  }else{
+   $(key+'-inverse').textContent='อ่านราคาไม่ได้';
+   $(key+'-status').textContent='⚠ '+(error?.message||'ไม่สามารถเชื่อมต่อ RPC ได้');
+   $(key+'-status').className='status error';results.push(false);
+  }
+ }));
+ $('updated').textContent=(results.every(Boolean)?'อัปเดตแล้ว: ':'ตรวจสอบการเชื่อมต่อ: ')+new Date().toLocaleTimeString('th-TH');
+ $('refresh').disabled=false;running=false;
+}
+$('refresh').addEventListener('click',update);
+update();setInterval(()=>{if(!document.hidden)update();},30000);
+
+const STC='0x12730990de18c6864e45d22f007ebebafbf6c76b';
+const STAKING='0xd1431576a8b28ed2B72212284513f336d1465AE2';
+const WALLETTOKENS={nc:CONFIG.nc.token,thbc:CONFIG.thbc.token,stc:STC,usdt:USDT};
+let walletAddress=null,walletVersion=0;
+const walletMessage=(m)=>{$('wallet-message').textContent=m;};
+async function chainRead(to,data){let err;for(const url of RPCS){try{return await rpc(url,to,data);}catch(e){err=e;}}throw err||Error('RPC ไม่ตอบสนอง');}
+function formatUnitsExact(value,decimals,max=5){
+ const n=BigInt(value),d=Number(BigInt(decimals));if(d<0||d>36)throw Error('Invalid decimals');
+ const base=10n**BigInt(d),whole=(n/base).toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');
+ const part=(n%base).toString().padStart(d,'0').slice(0,max).replace(/0+$/,'');
+ return whole+(part?'.'+part:'');
+}
+function stakeDate(n){const d=new Date(Number(n)*1000);return Number(n)>0&&Number.isFinite(d.getTime())?d.toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'}):'—';}
+const WHALE_V12='0x4C98C39A5D892874F66C1Ab71D641647BDF0D4f2';
+async function whaleView(addr,version){
+ const status=$('whale-status');status.textContent='กำลังอ่าน Whale V12...';
+ try{
+  const count=BigInt(await chainRead(WHALE_V12,'0x0e36e355'+arg(addr)));
+  const claimed=BigInt(await chainRead(WHALE_V12,'0x29c054d4'+arg(addr)));
+  if(version!==walletVersion)return;
+  $('whale-count').textContent=count.toString();
+  $('whale-claimed').textContent=formatUnitsExact(claimed,18);
+  const list=$('whale-list');list.replaceChildren();
+  let totalPrincipal=0n,totalReward=0n;
+  const limit=count>20n?20n:count;
+  for(let i=count;i>count-limit;){
+   i--;
+   const raw=(await chainRead(WHALE_V12,'0xcfd47663'+arg(addr)+i.toString(16).padStart(64,'0'))).slice(2);
+   if(version!==walletVersion)return;
+   if(raw.length<384)throw Error('ข้อมูล Stake ไม่ครบ');
+   const values=Array.from({length:6},(_,j)=>BigInt('0x'+raw.slice(j*64,j*64+64)));
+   const [pkg,principal,reward,start,end,claimedFlag]=values;
+   if(claimedFlag===0n){totalPrincipal+=principal;totalReward+=reward;}
+   const item=document.createElement('div');item.className='stake-row';
+   const state=claimedFlag!==0n?'เคลมแล้ว':Date.now()>=Number(end)*1000?'ครบกำหนด':'กำลัง Stake';
+   item.textContent='#'+(i+1n)+' · Package '+pkg+' · เงินต้น '+formatUnitsExact(principal,18)+' NC · รางวัล '+formatUnitsExact(reward,18)+' NC · เริ่ม '+stakeDate(start)+' · ครบ '+stakeDate(end)+' · '+state;
+   list.appendChild(item);
+  }
+  status.textContent=count===0n?'ไม่พบ Whale Stake สำหรับกระเป๋านี้':'แสดง '+limit+' จาก '+count+' รายการ · เงินต้นที่ยังไม่เคลม '+formatUnitsExact(totalPrincipal,18)+' NC · รางวัลที่ยังไม่เคลม '+formatUnitsExact(totalReward,18)+' NC'+(count>limit?' (เฉพาะรายการที่แสดง)':'');
+ }catch(e){if(version===walletVersion)status.textContent='อ่าน Whale V12 ไม่สำเร็จ: '+e.message;}
+}
+
+
+const REWARD_CORE_CURRENT='0xe737e2Bce62353841C828d74306922ce5993AA8D';
+const REWARD_CORE_PREVIOUS='0x1e60dE14dD2FE30082124bCf44637c1C91ea548F';
+const REWARD_STAKING_V1='0x9c441A269526B57A9a2C98e31f64CEB485b8886b';
+function rewardWords(raw,count){const h=raw.slice(2);if(h.length<count*64)throw Error('ข้อมูลไม่ครบ');return Array.from({length:count},(_,i)=>BigInt('0x'+h.slice(i*64,(i+1)*64)));}
+async function rewardCoreRead(core,addr){return rewardWords(await chainRead(core,'0x69517310'+arg(addr)),11);}
+async function refreshRewardCore(addr,version){
+ const status=$('reward-core-status');status.textContent='กำลังอ่าน NC Reward Core...';
+ try{
+  const w=await rewardCoreRead(REWARD_CORE_CURRENT,addr);if(version!==walletVersion)return;
+  const ranks=['None','Bronze','Silver','Gold'];
+  $('reward-rank').textContent=ranks[Number(w[7])]||'Rank '+w[7];
+  $('reward-org').textContent=formatUnitsExact(w[1],18);
+  $('reward-claimable').textContent=formatUnitsExact(w[5],18);
+  $('reward-staked').textContent=formatUnitsExact(w[3],18);
+  status.textContent='อ่าน Reward Core สำเร็จ · '+(w[10]===1n?'เคลมได้ตามเงื่อนไข':'ยังไม่ผ่านเงื่อนไขเคลม');
+ }catch(e){if(version===walletVersion)status.textContent='อ่าน Reward Core ไม่สำเร็จ: '+e.message;}
+ try{
+  const w=await rewardCoreRead(REWARD_CORE_PREVIOUS,addr);if(version!==walletVersion)return;
+  if(w.slice(0,6).some(x=>x>0n)){$('reward-previous').hidden=false;$('reward-old-org').textContent=formatUnitsExact(w[1],18);$('reward-old-claimable').textContent=formatUnitsExact(w[5],18);}
+  else $('reward-previous').hidden=true;
+ }catch(e){if(version===walletVersion)$('reward-previous').hidden=true;}
+}
+async function refreshRewardStaking(addr,version){
+ const status=$('reward-staking-status');status.textContent='กำลังอ่าน Reward Staking...';
+ try{
+  const [summary,withdraw]=await Promise.all([chainRead(REWARD_STAKING_V1,'0x8f8bea75'+arg(addr)),chainRead(REWARD_STAKING_V1,'0xbe7ab51b'+arg(addr))]);
+  if(version!==walletVersion)return;
+  const [total,activeLots,withdrawn,principal,matured]=rewardWords(summary,5);
+  $('reward-lots').textContent=total.toString();$('reward-active').textContent=formatUnitsExact(principal,18);$('reward-matured').textContent=formatUnitsExact(matured,18);$('reward-withdrawable').textContent=formatUnitsExact(BigInt(withdraw),18);
+  const list=$('reward-lot-list');list.replaceChildren();const limit=total>10n?10n:total;
+  for(let i=total;i>total-limit;){i--;const w=rewardWords(await chainRead(REWARD_STAKING_V1,'0x9e994110'+arg(addr)+i.toString(16).padStart(64,'0')),6);if(version!==walletVersion)return;
+   const row=document.createElement('div');row.className='stake-row';row.textContent='#'+(i+1n)+' · '+formatUnitsExact(w[0],18)+' NC · เริ่ม '+stakeDate(w[1])+' · ปลดล็อก '+stakeDate(w[2])+' · '+(w[3]?'ถอนแล้ว':w[4]?'ครบกำหนด':'กำลัง Stake');list.appendChild(row);
+  }
+  if(version===walletVersion)status.textContent=total===0n?'ยังไม่มี Reward Auto Stake':'อ่านสำเร็จ · แสดง '+limit+' จาก '+total+' รายการ';
+ }catch(e){if(version===walletVersion)status.textContent='อ่าน Reward Staking ไม่สำเร็จ: '+e.message;}
+}
+
+const THBC_WHALE_REWARD='0xbE80B741d12e8CD4a94D90444F9aeCD2051c0c09';
+async function refreshTHBCWhaleReward(addr,version){
+ const status=$('thbc-reward-status'),list=$('thbc-reward-list');
+ status.textContent='กำลังอ่าน THBC Whale Reward...';
+ try{
+  const count=BigInt(await chainRead(THBC_WHALE_REWARD,'0x33060d90'+arg(addr)));
+  if(version!==walletVersion)return;
+  $('thbc-reward-count').textContent=count.toString();
+  list.replaceChildren();
+  let active=0n,matured=0n,withdrawn=0n;
+  const limit=count>10n?10n:count,now=BigInt(Math.floor(Date.now()/1000));
+  for(let i=count;i>count-limit;){
+   i--;
+   const hex=await chainRead(THBC_WHALE_REWARD,'0xcfd47663'+arg(addr)+i.toString(16).padStart(64,'0'));
+   if(version!==walletVersion)return;
+   const raw=hex.slice(2);
+   if(raw.length<384)throw Error('ข้อมูล Stake ไม่ครบ');
+   const w=Array.from({length:6},(_,j)=>BigInt('0x'+raw.slice(j*64,(j+1)*64)));
+   const [txhash,usdt,thbc,start,unlock,isWithdrawn]=w;
+   if(isWithdrawn!==0n)withdrawn+=thbc;
+   else if(now>=unlock)matured+=thbc;
+   else active+=thbc;
+   const row=document.createElement('div');row.className='stake-row';
+   const state=isWithdrawn!==0n?'ถอนแล้ว':now>=unlock?'ครบกำหนด — ถอนได้':'กำลัง Stake';
+   row.textContent='#'+(i+1n)+' · '+formatUnitsExact(thbc,18)+' THBC · Whale '+formatUnitsExact(usdt,18)+' USDT · เริ่ม '+stakeDate(start)+' · ครบ '+stakeDate(unlock)+' · '+state;
+   list.appendChild(row);
+  }
+  if(version!==walletVersion)return;
+  $('thbc-reward-active').textContent=formatUnitsExact(active,18);
+  $('thbc-reward-matured').textContent=formatUnitsExact(matured,18);
+  $('thbc-reward-withdrawn').textContent=formatUnitsExact(withdrawn,18);
+  status.textContent=count===0n?'ยังไม่มี THBC Whale Reward ที่ Owner บันทึกให้กระเป๋านี้':count>10n?'แสดง 10 รายการล่าสุดจาก '+count+' รายการ · ยอด THBC ด้านบนรวมเฉพาะรายการที่แสดง':'อ่านสำเร็จ · '+count+' รายการ';
+ }catch(e){if(version===walletVersion)status.textContent='อ่าน THBC Whale Reward ไม่สำเร็จ: '+e.message;}
+}
+async function refreshWallet(){
+ if(!walletAddress)return;
+ const current=walletAddress,version=++walletVersion;
+ walletMessage('กำลังอ่านยอดเหรียญและรายการ Stake จาก BSC...');
+ await Promise.all([
+  refreshRewardCore(current,version),
+  refreshRewardStaking(current,version),
+  whaleView(current,version),
+  refreshTHBCWhaleReward(current,version),
+  ...Object.entries(WALLETTOKENS).map(async([key,token])=>{
+   try{const [b,d]=await Promise.all([chainRead(token,'0x70a08231'+arg(current)),chainRead(token,'0x313ce567')]);if(version===walletVersion)$('bal-'+key).textContent=formatUnitsExact(BigInt(b),BigInt(d));}
+   catch(e){if(version===walletVersion)$('bal-'+key).textContent='อ่านไม่ได้';}
+  }),
+  (async()=>{
+   try{
+    const [countHex,rewardHex]=await Promise.all([
+     chainRead(STAKING,'0x33060d90'+arg(current)),
+     chainRead(STAKING,'0xa68fb3b6'+arg(current)).catch(()=>null)
+    ]);
+    if(version!==walletVersion)return;
+    const count=BigInt(countHex);$('stake-count').textContent=count.toString();
+    $('stake-reward').textContent=rewardHex===null?'อ่านไม่ได้':formatUnitsExact(BigInt(rewardHex),18);
+    const n=Number(count>10n?10n:count),start=count-BigInt(n);
+    $('stake-status').textContent=count===0n?'ไม่พบรายการ Stake ใน NC Staking V5':'แสดง '+n+' รายการล่าสุดจากทั้งหมด '+count+' รายการ';
+    $('stake-list').replaceChildren();
+    for(let i=count-1n;i>=start&&i>=0n;i--){
+     const hex=await chainRead(STAKING,'0x997db02d'+arg(current)+i.toString(16).padStart(64,'0'));
+     if(version!==walletVersion)return;
+     const data=hex.slice(2);if(data.length<320)throw Error('ข้อมูล Stake ไม่ครบ');
+     const words=Array.from({length:5},(_,j)=>BigInt('0x'+data.slice(j*64,(j+1)*64)));
+     const [pkg,principal,begin,end,claimed]=words;
+     const el=document.createElement('div');el.className='stake-row';
+     const names={1:'SMALL',2:'MEDIUM',3:'LARGE'};
+     const maturity=claimed?'เคลมแล้ว':Date.now()>=Number(end)*1000?'ครบกำหนดแล้ว':'กำลัง Stake';
+     el.textContent='#'+(i+1n)+' · '+(names[Number(pkg)]||'Package '+pkg)+' · '+formatUnitsExact(principal,18)+' NC · เริ่ม '+stakeDate(begin)+' · ครบกำหนด '+stakeDate(end)+' · '+maturity;
+     $('stake-list').appendChild(el);
+    }
+   }catch(e){if(version===walletVersion)$('stake-status').textContent='อ่านข้อมูล Staking ไม่สำเร็จ: '+e.message;}
+  })()
+ ]);
+ if(version===walletVersion)walletMessage('อัปเดตข้อมูล Wallet และ Staking แล้ว · '+new Date().toLocaleTimeString('th-TH'));
+}
+
+
+function resetIntegratedDashboard(){
+  walletVersion++;walletAddress=null;
+  for(const id of ['bal-nc','bal-thbc','bal-stc','bal-usdt','stake-count','stake-reward','whale-count','whale-claimed','reward-rank','reward-org','reward-claimable','reward-staked','reward-lots','reward-active','reward-matured','reward-withdrawable','reward-old-org','reward-old-claimable','thbc-reward-count','thbc-reward-active','thbc-reward-matured','thbc-reward-withdrawn']){
+    const el=$(id);if(el)el.textContent='—';
+  }
+  for(const id of ['stake-list','whale-list','reward-lot-list','thbc-reward-list'])$(id)?.replaceChildren();
+  $('reward-previous').hidden=true;
+  for(const id of ['stake-status','whale-status','reward-core-status','reward-staking-status','thbc-reward-status'])$(id).textContent='เชื่อม Wallet ด้านบนเพื่อดูข้อมูล';
+  walletMessage('เชื่อม Wallet ด้านบนเพื่อดู Dashboard');
+}
+window.addEventListener('sixteen:wallet',event=>{
+  const address=event.detail?.address;
+  if(!address){resetIntegratedDashboard();return;}
+  if(!/^0x[a-fA-F0-9]{40}$/.test(address)){resetIntegratedDashboard();return;}
+  walletAddress=address;
+  refreshWallet().catch(err=>walletMessage('อ่าน Dashboard ไม่สำเร็จ: '+(err?.message||err)));
+});
+
+</script>
+</body>
+</html>
