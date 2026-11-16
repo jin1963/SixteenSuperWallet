@@ -66,7 +66,9 @@
 @media(max-width:650px){.sc-dashboard{padding:55px 0 28px}.sc-dashboard .sc-service-grid,.sc-dashboard .sc-market-grid{grid-template-columns:1fr}.sc-dashboard .sc-panel{padding:18px}.sc-dashboard .sc-asset{padding:15px;min-height:122px}.sc-dashboard .sc-amount{font-size:19px}.sc-dashboard .sc-section-head{align-items:flex-start;flex-direction:column;gap:7px}.sc-dashboard .sc-live{font-size:9px}}
 @media(max-width:360px){.sc-dashboard .sc-asset-grid,.sc-dashboard .sc-stats{grid-template-columns:1fr}}
 
-  </style>
+  
+.language-switch{display:inline-flex;border:1px solid var(--stroke);border-radius:10px;overflow:hidden;flex-shrink:0}.language-switch button{background:transparent;color:var(--muted);border:0;padding:8px 10px;font-size:12px;font-weight:700}.language-switch button[aria-pressed="true"]{background:var(--gold);color:#080d17}
+</style>
 
 
 </head>
@@ -80,6 +82,7 @@
       </a>
       <div class="header-actions">
         <span class="network-pill"><span class="dot"></span> BNB Smart Chain</span>
+        <div class="language-switch" role="group" aria-label="Language"><button type="button" id="langTH" aria-pressed="true">TH</button><button type="button" id="langEN" aria-pressed="false">EN</button></div>
         <button class="btn btn-outline btn-small" id="connectTop" type="button">Connect Wallet</button>
       </div>
     </header>
@@ -88,8 +91,8 @@
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
           <div class="eyebrow"><span class="eyebrow-line"></span> THE SIXTEEN ECOSYSTEM <span class="version">V3.0 Preview</span></div>
-          <h1 id="hero-title">ONE PLATFORM.<br><span>LIMITLESS POTENTIAL.</span></h1>
-          <p class="hero-thai">ศูนย์กลางเชื่อมต่อกระเป๋า Web3 และเข้าถึงบริการในเครือ SIXTEEN CURRENCY ผ่านแพลตฟอร์มเดียว</p>
+          <h1 id="hero-title"><span data-th="หนึ่งแพลตฟอร์ม" data-en="ONE PLATFORM">หนึ่งแพลตฟอร์ม</span><br><span data-th="โอกาสไร้ขีดจำกัด" data-en="LIMITLESS POTENTIAL">โอกาสไร้ขีดจำกัด</span></h1>
+          <p class="hero-thai" data-th="ศูนย์กลางเชื่อมต่อกระเป๋า Web3 และเข้าถึงบริการในเครือ SIXTEEN CURRENCY ผ่านแพลตฟอร์มเดียว" data-en="Connect your Web3 wallet and explore SIXTEEN CURRENCY services in one place.">ศูนย์กลางเชื่อมต่อกระเป๋า Web3 และเข้าถึงบริการในเครือ SIXTEEN CURRENCY ผ่านแพลตฟอร์มเดียว</p>
           <div class="hero-buttons">
             <button class="btn btn-gold" id="connectHero" type="button"><span aria-hidden="true">◈</span> Connect Your Wallet <span aria-hidden="true">↗</span></button>
             <a class="btn btn-ghost" href="#ecosystem">Explore Ecosystem <span aria-hidden="true">↓</span></a>
@@ -702,6 +705,20 @@ window.addEventListener('sixteen:wallet',event=>{
   refreshWallet().catch(err=>walletMessage('อ่าน Dashboard ไม่สำเร็จ: '+(err?.message||err)));
 });
 
+</script>
+<script>
+/* TH/EN interface: isolated from wallet and contract logic. */
+(function(){
+  const buttons={th:document.getElementById('langTH'),en:document.getElementById('langEN')};
+  function setLanguage(lang){
+    document.documentElement.lang=lang;
+    document.querySelectorAll('[data-th][data-en]').forEach(el=>{el.textContent=el.dataset[lang];});
+    Object.entries(buttons).forEach(([code,button])=>button?.setAttribute('aria-pressed',String(code===lang)));
+  }
+  buttons.th?.addEventListener('click',()=>setLanguage('th'));
+  buttons.en?.addEventListener('click',()=>setLanguage('en'));
+  setLanguage('th');
+})();
 </script>
 </body>
 </html>
